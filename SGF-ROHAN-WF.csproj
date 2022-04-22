@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,7 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DataLoader.cs" />
+    <Compile Include="Controller\DataPersistence.cs" />
+    <Compile Include="Controller\DataSerializer.cs" />
+    <Compile Include="CreateClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateClient.Designer.cs">
+      <DependentUpon>CreateClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateQuotation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,11 +67,14 @@
       <DependentUpon>CreateQuotation.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\SessionData.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Quotation.cs" />
-    <Compile Include="Model\RegisteredBusiness.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CreateClient.resx">
+      <DependentUpon>CreateClient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateQuotation.resx">
       <DependentUpon>CreateQuotation.cs</DependentUpon>
     </EmbeddedResource>
@@ -71,6 +87,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\SGF_ROHAN_WF.Model.Client.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,6 +102,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace SGF_ROHAN_WF.Model
 {
+
+    [Serializable]
     public class Quotation
     {
 
@@ -16,13 +18,38 @@ namespace SGF_ROHAN_WF.Model
             set { _quotationId = value; }
         }
 
-        public List<Product> ProductsToCheck;
+        private Client _client;
+        public Client Client
+        {
+            get { return _client; }
+            set { _client = value; }
+        }
 
-        public DateTime EmissionDate;
+        private List<Product> _productsInvolved;
+        public List<Product> ProductsInvolved
+        {
+            get { return _productsInvolved; }
+            set { _productsInvolved = value; }
+        }
 
-        public float TotalPrice;
-        public float NetTotal;
-        public float IvaPercentage = 19.0f;
+        private DateTime _emissionDate;
+        public DateTime EmissionDate
+        {
+            get { return _emissionDate; }
+            set { _emissionDate = value; }
+        }
+
+        private float _totalPrice;
+        public float TotalPrice { 
+            get => _totalPrice; 
+            set => _totalPrice = value; 
+        }
+
+        private float _netTotal;
+        public float NetTotal { 
+            get => _netTotal; 
+            set => _netTotal = value; 
+        }
 
 
         public Quotation()

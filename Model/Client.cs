@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace SGF_ROHAN_WF.Model
 {
+
+    [Serializable]
     public class Client
     {
 
@@ -38,8 +40,25 @@ namespace SGF_ROHAN_WF.Model
             }
         }
 
-        public string Email;
-        public int PhoneNumber;
-        public RegisteredBusiness registeredBusiness; 
+        private string _email;
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
+        }
+
+        private string _registeredBusiness;
+        public string RegisteredBusiness
+        {
+            get { return _registeredBusiness; }
+            set { _registeredBusiness = value; }
+        }
     }
 }
