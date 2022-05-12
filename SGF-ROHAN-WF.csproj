@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ClientRepositorySessionHandler.cs" />
     <Compile Include="Controller\DataPersistence.cs" />
     <Compile Include="Controller\DataSerializer.cs" />
     <Compile Include="CreateClient.cs">

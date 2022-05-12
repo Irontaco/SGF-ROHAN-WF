@@ -38,7 +38,7 @@
             this.label_DateEmitted = new System.Windows.Forms.Label();
             this.label_QuotationId = new System.Windows.Forms.Label();
             this.textBox_QuotationId = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_NewClient = new System.Windows.Forms.Button();
             this.listBox_ClientNameList = new System.Windows.Forms.ListBox();
             this.textBox_ClientNameSearchBar = new System.Windows.Forms.TextBox();
             this.DateEmitted = new System.Windows.Forms.Label();
@@ -60,6 +60,8 @@
             this.label_NetTotalData = new System.Windows.Forms.Label();
             this.label_IvaData = new System.Windows.Forms.Label();
             this.label_TotalPriceData = new System.Windows.Forms.Label();
+            this.button_AddProduct = new System.Windows.Forms.Button();
+            this.Button_DeleteClient = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,7 +131,7 @@
             // label_DateEmitted
             // 
             this.label_DateEmitted.AutoSize = true;
-            this.label_DateEmitted.Location = new System.Drawing.Point(632, 13);
+            this.label_DateEmitted.Location = new System.Drawing.Point(599, 13);
             this.label_DateEmitted.Name = "label_DateEmitted";
             this.label_DateEmitted.Size = new System.Drawing.Size(37, 13);
             this.label_DateEmitted.TabIndex = 7;
@@ -148,40 +150,43 @@
             // 
             this.textBox_QuotationId.Location = new System.Drawing.Point(89, 6);
             this.textBox_QuotationId.Name = "textBox_QuotationId";
-            this.textBox_QuotationId.Size = new System.Drawing.Size(132, 20);
+            this.textBox_QuotationId.Size = new System.Drawing.Size(32, 20);
             this.textBox_QuotationId.TabIndex = 9;
             // 
-            // button1
+            // button_NewClient
             // 
-            this.button1.Location = new System.Drawing.Point(227, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 24);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Nuevo Cliente...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_NewClient.Location = new System.Drawing.Point(349, 32);
+            this.button_NewClient.Name = "button_NewClient";
+            this.button_NewClient.Size = new System.Drawing.Size(104, 20);
+            this.button_NewClient.TabIndex = 10;
+            this.button_NewClient.Text = "Nuevo Cliente";
+            this.button_NewClient.UseVisualStyleBackColor = true;
+            this.button_NewClient.Click += new System.EventHandler(this.button_NewClient_Click);
             // 
             // listBox_ClientNameList
             // 
             this.listBox_ClientNameList.FormattingEnabled = true;
             this.listBox_ClientNameList.Location = new System.Drawing.Point(89, 58);
             this.listBox_ClientNameList.Name = "listBox_ClientNameList";
-            this.listBox_ClientNameList.Size = new System.Drawing.Size(132, 43);
+            this.listBox_ClientNameList.Size = new System.Drawing.Size(254, 43);
             this.listBox_ClientNameList.TabIndex = 11;
+            this.listBox_ClientNameList.SelectedIndexChanged += new System.EventHandler(this.listBox_ClientNameList_SelectedIndexChanged);
             // 
             // textBox_ClientNameSearchBar
             // 
             this.textBox_ClientNameSearchBar.Location = new System.Drawing.Point(89, 32);
             this.textBox_ClientNameSearchBar.Name = "textBox_ClientNameSearchBar";
-            this.textBox_ClientNameSearchBar.Size = new System.Drawing.Size(132, 20);
+            this.textBox_ClientNameSearchBar.Size = new System.Drawing.Size(254, 20);
             this.textBox_ClientNameSearchBar.TabIndex = 12;
             // 
             // DateEmitted
             // 
             this.DateEmitted.AutoSize = true;
-            this.DateEmitted.Location = new System.Drawing.Point(693, 13);
+            this.DateEmitted.Location = new System.Drawing.Point(645, 13);
             this.DateEmitted.Name = "DateEmitted";
-            this.DateEmitted.Size = new System.Drawing.Size(0, 13);
+            this.DateEmitted.Size = new System.Drawing.Size(35, 13);
             this.DateEmitted.TabIndex = 14;
+            this.DateEmitted.Text = "label1";
             // 
             // label_EmailData
             // 
@@ -221,6 +226,10 @@
             // 
             // dataGrid_Quotation
             // 
+            this.dataGrid_Quotation.AllowDrop = true;
+            this.dataGrid_Quotation.AllowUserToAddRows = false;
+            this.dataGrid_Quotation.AllowUserToDeleteRows = false;
+            this.dataGrid_Quotation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid_Quotation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_Quotation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -230,45 +239,62 @@
             this.Column5,
             this.Column6,
             this.Column7});
+            this.dataGrid_Quotation.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dataGrid_Quotation.Location = new System.Drawing.Point(12, 201);
             this.dataGrid_Quotation.Name = "dataGrid_Quotation";
+            this.dataGrid_Quotation.ReadOnly = true;
             this.dataGrid_Quotation.Size = new System.Drawing.Size(776, 150);
             this.dataGrid_Quotation.TabIndex = 19;
+            this.dataGrid_Quotation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Quotation_CellContentClick);
             // 
             // Column1
             // 
+            this.Column1.FillWeight = 20.52175F;
             this.Column1.HeaderText = "Item";
             this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Column2
             // 
+            this.Column2.FillWeight = 30F;
             this.Column2.HeaderText = "Cantidad";
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Descripción";
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
+            this.Column4.FillWeight = 57.98869F;
             this.Column4.HeaderText = "Precio Unit.";
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
+            this.Column5.FillWeight = 57.98869F;
             this.Column5.HeaderText = "Total";
             this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
             // 
             // Column6
             // 
+            this.Column6.FillWeight = 57.98869F;
             this.Column6.HeaderText = "Descuento";
             this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             // 
             // Column7
             // 
+            this.Column7.FillWeight = 57.98869F;
             this.Column7.HeaderText = "Precio Final";
             this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
             // 
             // button2
             // 
@@ -278,7 +304,6 @@
             this.button2.TabIndex = 20;
             this.button2.Text = "Guardar Cotización";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button_GeneratePDF
             // 
@@ -326,11 +351,33 @@
             this.label_TotalPriceData.TabIndex = 25;
             this.label_TotalPriceData.Text = "temp";
             // 
+            // button_AddProduct
+            // 
+            this.button_AddProduct.Location = new System.Drawing.Point(666, 175);
+            this.button_AddProduct.Name = "button_AddProduct";
+            this.button_AddProduct.Size = new System.Drawing.Size(122, 23);
+            this.button_AddProduct.TabIndex = 26;
+            this.button_AddProduct.Text = "Añadir Producto";
+            this.button_AddProduct.UseVisualStyleBackColor = true;
+            this.button_AddProduct.Click += new System.EventHandler(this.button_AddProduct_Click);
+            // 
+            // Button_DeleteClient
+            // 
+            this.Button_DeleteClient.Location = new System.Drawing.Point(349, 58);
+            this.Button_DeleteClient.Name = "Button_DeleteClient";
+            this.Button_DeleteClient.Size = new System.Drawing.Size(104, 20);
+            this.Button_DeleteClient.TabIndex = 27;
+            this.Button_DeleteClient.Text = "Eliminar Cliente";
+            this.Button_DeleteClient.UseVisualStyleBackColor = true;
+            this.Button_DeleteClient.Click += new System.EventHandler(this.Button_DeleteClient_Click);
+            // 
             // CreateQuotation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Button_DeleteClient);
+            this.Controls.Add(this.button_AddProduct);
             this.Controls.Add(this.label_TotalPriceData);
             this.Controls.Add(this.label_IvaData);
             this.Controls.Add(this.label_NetTotalData);
@@ -345,7 +392,7 @@
             this.Controls.Add(this.DateEmitted);
             this.Controls.Add(this.textBox_ClientNameSearchBar);
             this.Controls.Add(this.listBox_ClientNameList);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_NewClient);
             this.Controls.Add(this.textBox_QuotationId);
             this.Controls.Add(this.label_QuotationId);
             this.Controls.Add(this.label_DateEmitted);
@@ -377,7 +424,7 @@
         private System.Windows.Forms.Label label_DateEmitted;
         private System.Windows.Forms.Label label_QuotationId;
         private System.Windows.Forms.TextBox textBox_QuotationId;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_NewClient;
         private System.Windows.Forms.ListBox listBox_ClientNameList;
         private System.Windows.Forms.TextBox textBox_ClientNameSearchBar;
         private System.Windows.Forms.Label DateEmitted;
@@ -386,6 +433,15 @@
         private System.Windows.Forms.Label label_RegisteredBusinessData;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGrid_Quotation;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button_GeneratePDF;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label_NetTotalData;
+        private System.Windows.Forms.Label label_IvaData;
+        private System.Windows.Forms.Label label_TotalPriceData;
+        private System.Windows.Forms.Button button_AddProduct;
+        private System.Windows.Forms.Button Button_DeleteClient;
+        private System.Windows.Forms.BindingSource clientBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -393,12 +449,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button_GeneratePDF;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label_NetTotalData;
-        private System.Windows.Forms.Label label_IvaData;
-        private System.Windows.Forms.Label label_TotalPriceData;
     }
 }
 

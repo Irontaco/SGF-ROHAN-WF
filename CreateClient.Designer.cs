@@ -55,9 +55,11 @@
             // textBox_Names
             // 
             this.textBox_Names.Location = new System.Drawing.Point(12, 81);
+            this.textBox_Names.MaxLength = 40;
             this.textBox_Names.Name = "textBox_Names";
-            this.textBox_Names.Size = new System.Drawing.Size(179, 20);
+            this.textBox_Names.Size = new System.Drawing.Size(270, 20);
             this.textBox_Names.TabIndex = 1;
+            this.textBox_Names.TextChanged += new System.EventHandler(this.textBox_Names_TextChanged);
             // 
             // label_Surnames
             // 
@@ -71,14 +73,15 @@
             // textBox_Surnames
             // 
             this.textBox_Surnames.Location = new System.Drawing.Point(12, 120);
+            this.textBox_Surnames.MaxLength = 40;
             this.textBox_Surnames.Name = "textBox_Surnames";
-            this.textBox_Surnames.Size = new System.Drawing.Size(179, 20);
+            this.textBox_Surnames.Size = new System.Drawing.Size(270, 20);
             this.textBox_Surnames.TabIndex = 3;
             // 
             // label_FullName
             // 
             this.label_FullName.AutoSize = true;
-            this.label_FullName.Location = new System.Drawing.Point(9, 9);
+            this.label_FullName.Location = new System.Drawing.Point(12, 9);
             this.label_FullName.Name = "label_FullName";
             this.label_FullName.Size = new System.Drawing.Size(91, 13);
             this.label_FullName.TabIndex = 4;
@@ -87,8 +90,9 @@
             // textBox_Email
             // 
             this.textBox_Email.Location = new System.Drawing.Point(12, 159);
+            this.textBox_Email.MaxLength = 40;
             this.textBox_Email.Name = "textBox_Email";
-            this.textBox_Email.Size = new System.Drawing.Size(179, 20);
+            this.textBox_Email.Size = new System.Drawing.Size(270, 20);
             this.textBox_Email.TabIndex = 6;
             // 
             // label_Email
@@ -103,8 +107,9 @@
             // textBox_PhoneNumber
             // 
             this.textBox_PhoneNumber.Location = new System.Drawing.Point(12, 202);
+            this.textBox_PhoneNumber.MaxLength = 30;
             this.textBox_PhoneNumber.Name = "textBox_PhoneNumber";
-            this.textBox_PhoneNumber.Size = new System.Drawing.Size(179, 20);
+            this.textBox_PhoneNumber.Size = new System.Drawing.Size(270, 20);
             this.textBox_PhoneNumber.TabIndex = 8;
             // 
             // label_PhoneNumber
@@ -119,8 +124,9 @@
             // textBox_RegisteredBusiness
             // 
             this.textBox_RegisteredBusiness.Location = new System.Drawing.Point(12, 241);
+            this.textBox_RegisteredBusiness.MaxLength = 30;
             this.textBox_RegisteredBusiness.Name = "textBox_RegisteredBusiness";
-            this.textBox_RegisteredBusiness.Size = new System.Drawing.Size(179, 20);
+            this.textBox_RegisteredBusiness.Size = new System.Drawing.Size(270, 20);
             this.textBox_RegisteredBusiness.TabIndex = 10;
             // 
             // label_RegisteredBusiness
@@ -140,6 +146,7 @@
             this.button_Cancel.TabIndex = 11;
             this.button_Cancel.Text = "Cancelar";
             this.button_Cancel.UseVisualStyleBackColor = true;
+            this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
             // 
             // button_SaveClient
             // 
@@ -171,6 +178,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateClient";
             this.Text = "Nuevo Cliente...";
+            this.Load += new System.EventHandler(this.CreateClient_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

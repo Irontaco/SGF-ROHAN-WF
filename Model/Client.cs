@@ -11,6 +11,13 @@ namespace SGF_ROHAN_WF.Model
     public class Client
     {
 
+        private bool _isDeleted;
+        public bool IsDeleted
+        {
+            get { return _isDeleted; }
+            set { _isDeleted = value; }
+        }
+
         private int _id;
         public int Id
         {
@@ -60,5 +67,18 @@ namespace SGF_ROHAN_WF.Model
             get { return _registeredBusiness; }
             set { _registeredBusiness = value; }
         }
+
+    }
+
+    public interface IClientRepository
+    {
+
+        Client GetClientFromId(int id);
+        Client GetClientFromName(string name);
+        List<Client> GetAllClients();
+        bool CreateClient(Client client);
+        bool DeleteClient(int id);
+        bool UpdateClient(int id, Client updatedClientData);
+
     }
 }

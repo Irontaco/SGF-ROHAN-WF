@@ -18,80 +18,46 @@ namespace SGF_ROHAN_WF
     public partial class CreateQuotation : Form
     {
 
+        DataPersistence dataPersistence;
 
-        public CreateQuotation()
+        Client SelectedClient;
+        List<string> ListBoxClientNames;
+
+        public CreateQuotation(DataPersistence dataPers)
         {
+            dataPersistence = dataPers;
             InitializeComponent();
         }
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
 
-            List<string> clientNames = new List<string>();
-
-            /*
-            Client client1 = new Client();
-            client1.Id = 1;
-            client1.Names = "Rodrigo Lazaro";
-            client1.Surnames = "Nuñez Mendez";
-            client1.RegisteredBusiness = "";
-            client1.Email = "rodrigo.nunez@gmail.com";
-            client1.PhoneNumber = "+569 2222 1111";
-
-            Client client2 = new Client();
-            client2.Id = 2;
-            client2.Names = "Teresa Estefania";
-            client2.Surnames = "Lopez Garcia";
-            client2.RegisteredBusiness = "";
-            client2.Email = "teresa.lopez@gmail.com";
-            client2.PhoneNumber = "+569 3333 4444";
-
-            Client client3 = new Client();
-            client3.Id = 3;
-            client3.Names = "Walter Fabian";
-            client3.Surnames = "Torres Alvarado";
-            client3.RegisteredBusiness = "";
-            client3.Email = "walter.torres@gmail.com";
-            client3.PhoneNumber = "+569 5555 6666";
-
-            clientNames.Add(client1.FullName);
-            clientNames.Add(client2.FullName);
-            clientNames.Add(client3.FullName);
-            */
-
-            DataPersistence dataPers = new DataPersistence();
-
-            List<Client> Clients = dataPers.FetchClientsFromSavedData();
-
-            foreach (Client client in Clients)
-            {
-                clientNames.Add(client.FullName);
-            }
-
             Quotation newQuotation = new Quotation();
 
             newQuotation.EmissionDate = DateTime.Now;
 
             DateEmitted.Text = newQuotation.EmissionDate.ToString();
-            listBox_ClientNameList.DataSource = clientNames;
             textBox_QuotationId.Text = "1";
             label_TotalPriceData.Text = "0 CLP";
             label_NetTotalData.Text = "0 CLP";
             label_IvaData.Text = "19.0 %";
 
             DataGridTableStyle dataGridStyle = new DataGridTableStyle();
-            dataGridStyle.MappingName = "Items";
+            dataGridStyle.ReadOnly = false;
 
             DataGridBoolColumn dgCol = new DataGridBoolColumn();
-            dgCol.HeaderText = "Item";
-            dgCol.MappingName = "Current";
+            dgCol.ReadOnly = false;
+
+            //DEBUG_CreateDummyData();
+
+            UpdateListBoxContents();
+            UpdateSelectedClientData();
 
             dataGridStyle.GridColumnStyles.Add(dgCol);
 
-            
-
-
         }
+
+
 
         //Calls PDF generator
         private void button_GeneratePDF_Click(object sender, EventArgs e)
@@ -111,7 +77,95 @@ namespace SGF_ROHAN_WF
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void button_NewClient_Click(object sender, EventArgs e)
+        {
+            CreateClient clientForm = new CreateClient(dataPersistence);
+            clientForm.FormClosed += ClientForm_FormClosed;
+
+            clientForm.ShowDialog();
+
+        }
+
+        //Defines what happens once we close the child window.
+        private void ClientForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UpdateListBoxContents();
+        }
+
+        //Updates the contents of the main Quotation window - need to call this everytime we close a child window.
+        //TODO: Test for overlapping data.
+        private void UpdateListBoxContents()
+        {
+            ListBoxClientNames = new List<string>();
+
+            foreach (Client client in dataPersistence.ClientRepository.GetAllClients())
+            {
+                if (!client.IsDeleted)
+                {
+                    ListBoxClientNames.Add(client.FullName);
+                }
+            }
+
+            listBox_ClientNameList.DataSource = ListBoxClientNames;
+
+            return;
+        }
+
+        private void UpdateSelectedClientData()
+        {
+            if (SelectedClient == null)
+            {
+                textBox_ClientNameSearchBar.Text = "";
+                label_EmailData.Text = "";
+                label_PhoneNumberData.Text = "";
+                label_RegisteredBusinessData.Text = "";
+
+                return;
+            }
+            else
+            {
+                textBox_ClientNameSearchBar.Text = SelectedClient.Id + " - " + SelectedClient.FullName;
+                label_EmailData.Text = SelectedClient.Email;
+                label_PhoneNumberData.Text = SelectedClient.PhoneNumber;
+                label_RegisteredBusinessData.Text = SelectedClient.RegisteredBusiness;
+            }
+
+        }
+
+        private void listBox_ClientNameList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
+            UpdateSelectedClientData();
+
+        }
+
+        private void Button_DeleteClient_Click(object sender, EventArgs e)
+        {
+            var DialogConfirmation = MessageBox.Show("Está seguro que desea eliminar este registro?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+            
+            if(DialogConfirmation == DialogResult.Yes)
+            {
+                dataPersistence.ClientRepository.DeleteClient(SelectedClient.Id);
+                UpdateListBoxContents();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void dataGrid_Quotation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void button_AddProduct_Click(object sender, EventArgs e)
         {
 
         }

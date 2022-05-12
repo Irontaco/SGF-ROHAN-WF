@@ -18,6 +18,10 @@ namespace SGF_ROHAN_WF.Model
             set { _quotationId = value; }
         }
 
+
+        //It's important that we don't keep actual references of the Client/Product objects in here.
+        //If they're deleted, we don't want to gather Quotation objects with broken references.
+        //All operations that require these to be gathered need to make new objects.
         private Client _client;
         public Client Client
         {

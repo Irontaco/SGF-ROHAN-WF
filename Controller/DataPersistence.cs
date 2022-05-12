@@ -12,38 +12,33 @@ namespace SGF_ROHAN_WF.Controller
         public SessionData CurrentData;
         public SessionData SavedData;
 
+        public ClientRepositorySessionHandler ClientRepository;
+
         public DataPersistence()
         {
-            if(DataSerializer.Load("clData") != null)
+            
+            if(DataSerializer.LoadSessionData("sessionData") != null)
             {
-                SavedData = DataSerializer.Load("clData");
+                SavedData = DataSerializer.LoadSessionData("sessionData");
                 CurrentData = SavedData;
 
             }
             else
             {
                 Console.WriteLine("No SavedData detected... Creating new file once we save!");
-                CurrentData = new SessionData();
+                SavedData = CurrentData = new SessionData();
             }
+
+            ClientRepository = new ClientRepositorySessionHandler(this);
 
         }
 
-        public List<Client> FetchClientsFromSavedData()
+        public bool CommitChanges()
         {
-            if(SavedData == null)
-            {
-                Console.WriteLine("we were given null data!");
-                return null;
-            }
 
-            List<Client> clientList = new List<Client>();
+            DataSerializer.SaveSessionData(CurrentData, "sessionData");
 
-            foreach(Client client in SavedData.ClientData.Values)
-            {
-                clientList.Add(client);
-            }
-
-            return clientList;
+            return false;
         }
 
     }

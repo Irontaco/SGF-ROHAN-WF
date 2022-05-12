@@ -1,4 +1,5 @@
-﻿using SGF_ROHAN_WF.Model;
+﻿using SGF_ROHAN_WF.Controller;
+using SGF_ROHAN_WF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,10 @@ namespace SGF_ROHAN_WF
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CreateQuotation());
+
+            DataPersistence dataPersistence = new DataPersistence();
+
+            Application.Run(new CreateQuotation(dataPersistence));
         }
     }
 }

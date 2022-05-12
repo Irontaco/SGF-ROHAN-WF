@@ -15,22 +15,24 @@ namespace SGF_ROHAN_WF.Controller
     public class DataSerializer
     {
 
-        const int VERSION = 1;
-
-
-        public static bool SaveCurrentSession(SessionData data, string fname)
+        public static bool SaveSessionData(SessionData data, string filename)
         {
             Stream stream = null;
+
             try
             {
                 IFormatter formatter = new BinaryFormatter();
-                stream = new FileStream(fname, FileMode.Create, FileAccess.Write, FileShare.None);
-                formatter.Serialize(stream, VERSION);
+                stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
                 formatter.Serialize(stream, data);
+            }
+            catch (SerializationException ex)
+            {
+                Console.WriteLine("Serialization failed!" + ex.ToString());
+                return false;
             }
             catch (Exception ex)
             {
-                Console.Write(ex.ToString());
+                Console.WriteLine(ex.Message);
                 return false;
             }
             finally
@@ -39,35 +41,36 @@ namespace SGF_ROHAN_WF.Controller
                 {
                     stream.Close();
                 }
-                
             }
-            return true;
 
+            return true;
         }
 
-        public static SessionData Load(string fname)
+        public static SessionData LoadSessionData(string filename)
         {
             Stream stream = null;
-            SessionData currData = null;
+            SessionData loadedData = null;
+
             try
             {
                 IFormatter formatter = new BinaryFormatter();
-                stream = new FileStream(fname, FileMode.Open, FileAccess.Read, FileShare.None);
-                int version = (int)formatter.Deserialize(stream);
-                Debug.Assert(version == VERSION);
-                currData = (SessionData)formatter.Deserialize(stream);
+                stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.None);
+                loadedData = (SessionData)formatter.Deserialize(stream);
             }
-            catch
+            catch(FileNotFoundException ex)
             {
-                // do nothing, just ignore any possible errors. What!
+                Console.WriteLine("...Attempted to fetch file '" + ex.FileName + "' which was not found.");
+
             }
             finally
             {
-                if (null != stream)
+                if (stream != null)
+                {
                     stream.Close();
+                }
             }
-            return currData;
-        }
 
+            return loadedData;  
+        }
     }
 }
