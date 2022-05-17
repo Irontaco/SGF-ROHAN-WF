@@ -20,11 +20,16 @@ namespace SGF_ROHAN_WF
 
         DataPersistence dataPersistence;
 
+
+        Quotation CurrentQuotation;
         Client SelectedClient;
         List<string> ListBoxClientNames;
 
+        public DataTable CurrentDataTable;
+
         public CreateQuotation(DataPersistence dataPers)
         {
+            CurrentQuotation = new Quotation();
             dataPersistence = dataPers;
             InitializeComponent();
         }
@@ -32,28 +37,18 @@ namespace SGF_ROHAN_WF
         private void MainScreen_Load(object sender, EventArgs e)
         {
 
-            Quotation newQuotation = new Quotation();
-
-            newQuotation.EmissionDate = DateTime.Now;
-
-            DateEmitted.Text = newQuotation.EmissionDate.ToString();
+            DateEmitted.Text = "Aún no emitida";
             textBox_QuotationId.Text = "1";
             label_TotalPriceData.Text = "0 CLP";
             label_NetTotalData.Text = "0 CLP";
             label_IvaData.Text = "19.0 %";
 
-            DataGridTableStyle dataGridStyle = new DataGridTableStyle();
-            dataGridStyle.ReadOnly = false;
-
-            DataGridBoolColumn dgCol = new DataGridBoolColumn();
-            dgCol.ReadOnly = false;
-
+            CurrentDataTable = new DataTable();
             //DEBUG_CreateDummyData();
 
             UpdateListBoxContents();
             UpdateSelectedClientData();
 
-            dataGridStyle.GridColumnStyles.Add(dgCol);
 
         }
 
@@ -155,17 +150,79 @@ namespace SGF_ROHAN_WF
             }
         }
 
+        private bool ValidateProductPanelTextBoxes()
+        {
+            foreach(Control ctrl in panel2.Controls)
+            {
+                if(ctrl is TextBox)
+                {
+                    if(String.IsNullOrWhiteSpace(ctrl.Text))
+                    {
+                        MessageBox.Show("Existen valores vacíos en el producto a registrar, por favor corregir!");
+                        return false;
+
+                    }
+                    if (!p2_textBox_ProductPrice.Text.All(char.IsDigit) || !p2_textBox_ProductDiscount.Text.All(char.IsDigit) || !p2_textBox_ProductQuantity.Text.All(char.IsDigit))
+                    {
+                        MessageBox.Show("No se pueden añadir valores no númericos al Precio o Descuento.");
+                    }
+                }
+            }
+
+            return true;
+
+        }
+
+        private void CreateQuotationFromFormData()
+        {
+
+        }
+
+        private bool GenerateEntryFromFormData()
+        {
+            string enProductName = p2_textBox_ProductName.Text;
+            string enProductDescription = p2_TextBox_ProductDescription.Text;
+            string enProductSpecifications = p2_textBox_ProductSpecifications.Text;
+            float enProductUnitPrice = int.Parse(p2_textBox_ProductPrice.Text);
+
+            int entryQuantity = int.Parse(p2_textBox_ProductQuantity.Text);
+            float entryDiscount = int.Parse(p2_textBox_ProductDiscount.Text);
+
+            Product entryProduct = new Product(enProductName, enProductDescription, enProductSpecifications, enProductUnitPrice);
+
+            if(CurrentQuotation.AddNewEntryFromProductData(entryProduct, entryQuantity, entryDiscount, true, out Entry generatedEntry))
+            {
+                var index = dataGrid_Quotation.Rows.Add();
+                dataGrid_Quotation.Rows[index].Cells["Item"].Value = generatedEntry.ItemNumber;
+                dataGrid_Quotation.Rows[index].Cells["Quantity"].Value = generatedEntry.Quantity;
+                dataGrid_Quotation.Rows[index].Cells["ProductName"].Value = generatedEntry.RowProduct.ProductName + "(Medidas = " + generatedEntry.RowProduct.ProductSpecifications + ")";
+                dataGrid_Quotation.Rows[index].Cells["Description"].Value = generatedEntry.RowProduct.ProductDescription;
+                dataGrid_Quotation.Rows[index].Cells["UnitPrice"].Value = generatedEntry.RowProduct.UnitPrice;
+                dataGrid_Quotation.Rows[index].Cells["TotalPrice"].Value = generatedEntry.TotalPrice;
+                dataGrid_Quotation.Rows[index].Cells["Discount"].Value = generatedEntry.Discount;
+                dataGrid_Quotation.Rows[index].Cells["FinalPrice"].Value = generatedEntry.FinalPrice;
+
+                return true;
+
+            }
+
+            return false;
+
+        }
+
+
+        private void p2_button_AddProductToQuotation_Click(object sender, EventArgs e)
+        {
+            if (ValidateProductPanelTextBoxes())
+            {
+                GenerateEntryFromFormData();
+
+            }
+
+
+        }
+
         private void dataGrid_Quotation_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void button_AddProduct_Click(object sender, EventArgs e)
         {
 
         }

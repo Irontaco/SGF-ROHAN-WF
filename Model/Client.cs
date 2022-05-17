@@ -11,11 +11,11 @@ namespace SGF_ROHAN_WF.Model
     public class Client
     {
 
-        private bool _isDeleted;
+        private bool _isdeleted;
         public bool IsDeleted
         {
-            get { return _isDeleted; }
-            set { _isDeleted = value; }
+            get { return _isdeleted; }
+            set { _isdeleted = value; }
         }
 
         private int _id;

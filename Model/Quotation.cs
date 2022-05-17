@@ -18,9 +18,8 @@ namespace SGF_ROHAN_WF.Model
             set { _quotationId = value; }
         }
 
-
         //It's important that we don't keep actual references of the Client/Product objects in here.
-        //If they're deleted, we don't want to gather Quotation objects with broken references.
+        //If they're deleted, we don't want to gather Quotation objects with broken object references.
         //All operations that require these to be gathered need to make new objects.
         private Client _client;
         public Client Client
@@ -29,11 +28,11 @@ namespace SGF_ROHAN_WF.Model
             set { _client = value; }
         }
 
-        private List<Product> _productsInvolved;
-        public List<Product> ProductsInvolved
+        private List<Entry> _productEntries;
+        public List<Entry> ProductEntries
         {
-            get { return _productsInvolved; }
-            set { _productsInvolved = value; }
+            get { return _productEntries; }
+            set { _productEntries = value; }
         }
 
         private DateTime _emissionDate;
@@ -55,13 +54,96 @@ namespace SGF_ROHAN_WF.Model
             set => _netTotal = value; 
         }
 
+        private string _offervalidfor;
+        public string OfferValidFor
+        {
+            get => _offervalidfor;
+            set => _offervalidfor = value;
+        }
 
         public Quotation()
         {
+            ProductEntries = new List<Entry>();
+
+        }
+
+        public bool AddNewEntryFromProductData(Product rowProduct, int qty, float disc, bool addToIndex, out Entry generatedEntry)
+        {
+            try
+            {
+                generatedEntry = new Entry(ProductEntries.Count + 1, rowProduct, qty, disc);
+
+                if (addToIndex && AddEntryToIndex(generatedEntry))
+                {
+                    return true;
+                }
+                else if (addToIndex && !AddEntryToIndex(generatedEntry))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+            }catch(NullReferenceException ex)
+            {
+                Console.WriteLine(ex.Message);
+                generatedEntry = null;
+                return false;
+            }
+        }
+
+        public bool AddEntryToIndex(Entry newEntry)
+        {
+            if(newEntry == null)
+            {
+                return false;
+            }
+            else
+            {
+                ProductEntries.Add(newEntry);
+                return true;
+            }
+        }
+
+        public bool RemoveEntryFromIndex(int itemNo)
+        {
+            if(itemNo == 0 || itemNo < 0 || ProductEntries[itemNo] == null)
+            {
+                return false;
+            }
+
+            ProductEntries.RemoveAt(itemNo);
+            return true;
 
         }
 
     }
 
+    public class Entry
+    {
+        public int ItemNumber;
+        public Product RowProduct;
+        public int Quantity;
+        public float Discount;
+        public float TotalPrice
+        {
+            get => Convert.ToInt32(RowProduct.UnitPrice) * Quantity;
+        }
+        public float FinalPrice
+        {
+            get => TotalPrice - (TotalPrice * (Discount / 100));
+        }
+
+        public Entry(int itemNo, Product rowProduct, int qty, float disc)
+        {
+            ItemNumber = itemNo;
+            RowProduct = rowProduct;
+            Quantity = qty;
+            Discount = disc;
+        }
+
+    }
 
 }

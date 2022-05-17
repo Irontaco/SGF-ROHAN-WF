@@ -7,6 +7,12 @@ namespace SGF_ROHAN_WF.Model
     [Serializable]
     public class Product
     {
+        private bool _isdeleted;
+        public bool IsDeleted
+        {
+            get { return _isdeleted; }
+            set { _isdeleted = value; }
+        }
 
         private int _id;
         public int Id { get
@@ -43,23 +49,18 @@ namespace SGF_ROHAN_WF.Model
             set { _unitprice = value; } 
         }
 
-        private string _dimensions;
-        public string Dimensions
-        {
-            get { return _dimensions; }
-            set { _dimensions = value; }
-        }
 
-        public Product(string productName, string productDescription, float unitPrice)
+
+        public Product(string productName, string productDescription, string productSpecs, float unitPrice)
         {
             this.ProductName = productName;
             this.ProductDescription = productDescription;
+            this.ProductSpecifications = productSpecs;
             this.UnitPrice = unitPrice;
         }
 
-
-
-    
-    
+        public Product()
+        {
+        }
     }
 }

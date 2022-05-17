@@ -47,22 +47,44 @@
             this.label_RegisteredBusinessData = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid_Quotation = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.button_GeneratePDF = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label_NetTotalData = new System.Windows.Forms.Label();
             this.label_IvaData = new System.Windows.Forms.Label();
             this.label_TotalPriceData = new System.Windows.Forms.Label();
-            this.button_AddProduct = new System.Windows.Forms.Button();
             this.Button_DeleteClient = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.p2_label_ProductQuantity = new System.Windows.Forms.Label();
+            this.p2_textBox_ProductQuantity = new System.Windows.Forms.TextBox();
+            this.p2_label_ProductDiscount = new System.Windows.Forms.Label();
+            this.p2_textBox_ProductDiscount = new System.Windows.Forms.TextBox();
+            this.p2_button_UpdateProduct = new System.Windows.Forms.Button();
+            this.p2_button_RemoveProduct = new System.Windows.Forms.Button();
+            this.p2_button_ClearFields = new System.Windows.Forms.Button();
+            this.p2_button_AddProductToQuotation = new System.Windows.Forms.Button();
+            this.p2_label_ProductPrice = new System.Windows.Forms.Label();
+            this.p2_textBox_ProductPrice = new System.Windows.Forms.TextBox();
+            this.p2_label_ProductSpecifications = new System.Windows.Forms.Label();
+            this.p2_textBox_ProductSpecifications = new System.Windows.Forms.TextBox();
+            this.p2_label_ProductDescription = new System.Windows.Forms.Label();
+            this.p2_TextBox_ProductDescription = new System.Windows.Forms.TextBox();
+            this.p2_label_ProductName = new System.Windows.Forms.Label();
+            this.p2_textBox_ProductName = new System.Windows.Forms.TextBox();
+            this.p2_button_CreateProductInData = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_ClientNameSearchBar
@@ -77,7 +99,7 @@
             // label_RegisteredBusiness
             // 
             this.label_RegisteredBusiness.AutoSize = true;
-            this.label_RegisteredBusiness.Location = new System.Drawing.Point(9, 151);
+            this.label_RegisteredBusiness.Location = new System.Drawing.Point(9, 133);
             this.label_RegisteredBusiness.Name = "label_RegisteredBusiness";
             this.label_RegisteredBusiness.Size = new System.Drawing.Size(48, 13);
             this.label_RegisteredBusiness.TabIndex = 1;
@@ -95,7 +117,7 @@
             // label_PhoneNumber
             // 
             this.label_PhoneNumber.AutoSize = true;
-            this.label_PhoneNumber.Location = new System.Drawing.Point(9, 128);
+            this.label_PhoneNumber.Location = new System.Drawing.Point(9, 119);
             this.label_PhoneNumber.Name = "label_PhoneNumber";
             this.label_PhoneNumber.Size = new System.Drawing.Size(49, 13);
             this.label_PhoneNumber.TabIndex = 3;
@@ -104,7 +126,7 @@
             // label_NetTotal
             // 
             this.label_NetTotal.AutoSize = true;
-            this.label_NetTotal.Location = new System.Drawing.Point(632, 367);
+            this.label_NetTotal.Location = new System.Drawing.Point(629, 342);
             this.label_NetTotal.Name = "label_NetTotal";
             this.label_NetTotal.Size = new System.Drawing.Size(37, 13);
             this.label_NetTotal.TabIndex = 4;
@@ -113,7 +135,7 @@
             // label_IvaPercentage
             // 
             this.label_IvaPercentage.AutoSize = true;
-            this.label_IvaPercentage.Location = new System.Drawing.Point(645, 380);
+            this.label_IvaPercentage.Location = new System.Drawing.Point(642, 355);
             this.label_IvaPercentage.Name = "label_IvaPercentage";
             this.label_IvaPercentage.Size = new System.Drawing.Size(24, 13);
             this.label_IvaPercentage.TabIndex = 5;
@@ -122,7 +144,7 @@
             // label_TotalPrice
             // 
             this.label_TotalPrice.AutoSize = true;
-            this.label_TotalPrice.Location = new System.Drawing.Point(627, 393);
+            this.label_TotalPrice.Location = new System.Drawing.Point(624, 368);
             this.label_TotalPrice.Name = "label_TotalPrice";
             this.label_TotalPrice.Size = new System.Drawing.Size(42, 13);
             this.label_TotalPrice.TabIndex = 6;
@@ -200,7 +222,7 @@
             // label_PhoneNumberData
             // 
             this.label_PhoneNumberData.AutoSize = true;
-            this.label_PhoneNumberData.Location = new System.Drawing.Point(86, 128);
+            this.label_PhoneNumberData.Location = new System.Drawing.Point(86, 120);
             this.label_PhoneNumberData.Name = "label_PhoneNumberData";
             this.label_PhoneNumberData.Size = new System.Drawing.Size(35, 13);
             this.label_PhoneNumberData.TabIndex = 16;
@@ -209,7 +231,7 @@
             // label_RegisteredBusinessData
             // 
             this.label_RegisteredBusinessData.AutoSize = true;
-            this.label_RegisteredBusinessData.Location = new System.Drawing.Point(86, 151);
+            this.label_RegisteredBusinessData.Location = new System.Drawing.Point(86, 133);
             this.label_RegisteredBusinessData.Name = "label_RegisteredBusinessData";
             this.label_RegisteredBusinessData.Size = new System.Drawing.Size(35, 13);
             this.label_RegisteredBusinessData.TabIndex = 17;
@@ -218,7 +240,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 185);
+            this.label1.Location = new System.Drawing.Point(8, 173);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 18;
@@ -232,73 +254,25 @@
             this.dataGrid_Quotation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid_Quotation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_Quotation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7});
+            this.Item,
+            this.Quantity,
+            this.ProductName,
+            this.Description,
+            this.UnitPrice,
+            this.TotalPrice,
+            this.Discount,
+            this.FinalPrice});
             this.dataGrid_Quotation.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dataGrid_Quotation.Location = new System.Drawing.Point(12, 201);
+            this.dataGrid_Quotation.Location = new System.Drawing.Point(6, 189);
             this.dataGrid_Quotation.Name = "dataGrid_Quotation";
             this.dataGrid_Quotation.ReadOnly = true;
             this.dataGrid_Quotation.Size = new System.Drawing.Size(776, 150);
             this.dataGrid_Quotation.TabIndex = 19;
             this.dataGrid_Quotation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Quotation_CellContentClick);
             // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 20.52175F;
-            this.Column1.HeaderText = "Item";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 30F;
-            this.Column2.HeaderText = "Cantidad";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Descripción";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.FillWeight = 57.98869F;
-            this.Column4.HeaderText = "Precio Unit.";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.FillWeight = 57.98869F;
-            this.Column5.HeaderText = "Total";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.FillWeight = 57.98869F;
-            this.Column6.HeaderText = "Descuento";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.FillWeight = 57.98869F;
-            this.Column7.HeaderText = "Precio Final";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(672, 414);
+            this.button2.Location = new System.Drawing.Point(672, 390);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(116, 24);
             this.button2.TabIndex = 20;
@@ -307,7 +281,7 @@
             // 
             // button_GeneratePDF
             // 
-            this.button_GeneratePDF.Location = new System.Drawing.Point(582, 414);
+            this.button_GeneratePDF.Location = new System.Drawing.Point(582, 390);
             this.button_GeneratePDF.Name = "button_GeneratePDF";
             this.button_GeneratePDF.Size = new System.Drawing.Size(84, 24);
             this.button_GeneratePDF.TabIndex = 21;
@@ -317,7 +291,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 414);
+            this.button4.Location = new System.Drawing.Point(11, 390);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(116, 24);
             this.button4.TabIndex = 22;
@@ -327,7 +301,7 @@
             // label_NetTotalData
             // 
             this.label_NetTotalData.AutoSize = true;
-            this.label_NetTotalData.Location = new System.Drawing.Point(675, 367);
+            this.label_NetTotalData.Location = new System.Drawing.Point(672, 342);
             this.label_NetTotalData.Name = "label_NetTotalData";
             this.label_NetTotalData.Size = new System.Drawing.Size(30, 13);
             this.label_NetTotalData.TabIndex = 23;
@@ -336,7 +310,7 @@
             // label_IvaData
             // 
             this.label_IvaData.AutoSize = true;
-            this.label_IvaData.Location = new System.Drawing.Point(675, 380);
+            this.label_IvaData.Location = new System.Drawing.Point(672, 355);
             this.label_IvaData.Name = "label_IvaData";
             this.label_IvaData.Size = new System.Drawing.Size(30, 13);
             this.label_IvaData.TabIndex = 24;
@@ -345,21 +319,11 @@
             // label_TotalPriceData
             // 
             this.label_TotalPriceData.AutoSize = true;
-            this.label_TotalPriceData.Location = new System.Drawing.Point(675, 393);
+            this.label_TotalPriceData.Location = new System.Drawing.Point(672, 368);
             this.label_TotalPriceData.Name = "label_TotalPriceData";
             this.label_TotalPriceData.Size = new System.Drawing.Size(30, 13);
             this.label_TotalPriceData.TabIndex = 25;
             this.label_TotalPriceData.Text = "temp";
-            // 
-            // button_AddProduct
-            // 
-            this.button_AddProduct.Location = new System.Drawing.Point(666, 175);
-            this.button_AddProduct.Name = "button_AddProduct";
-            this.button_AddProduct.Size = new System.Drawing.Size(122, 23);
-            this.button_AddProduct.TabIndex = 26;
-            this.button_AddProduct.Text = "Añadir Producto";
-            this.button_AddProduct.UseVisualStyleBackColor = true;
-            this.button_AddProduct.Click += new System.EventHandler(this.button_AddProduct_Click);
             // 
             // Button_DeleteClient
             // 
@@ -371,44 +335,285 @@
             this.Button_DeleteClient.UseVisualStyleBackColor = true;
             this.Button_DeleteClient.Click += new System.EventHandler(this.Button_DeleteClient_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.Button_DeleteClient);
+            this.panel1.Controls.Add(this.label_TotalPriceData);
+            this.panel1.Controls.Add(this.label_IvaData);
+            this.panel1.Controls.Add(this.label_NetTotalData);
+            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.button_GeneratePDF);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label_RegisteredBusinessData);
+            this.panel1.Controls.Add(this.label_PhoneNumberData);
+            this.panel1.Controls.Add(this.label_EmailData);
+            this.panel1.Controls.Add(this.DateEmitted);
+            this.panel1.Controls.Add(this.textBox_ClientNameSearchBar);
+            this.panel1.Controls.Add(this.listBox_ClientNameList);
+            this.panel1.Controls.Add(this.button_NewClient);
+            this.panel1.Controls.Add(this.textBox_QuotationId);
+            this.panel1.Controls.Add(this.label_QuotationId);
+            this.panel1.Controls.Add(this.label_DateEmitted);
+            this.panel1.Controls.Add(this.label_TotalPrice);
+            this.panel1.Controls.Add(this.label_IvaPercentage);
+            this.panel1.Controls.Add(this.label_NetTotal);
+            this.panel1.Controls.Add(this.label_PhoneNumber);
+            this.panel1.Controls.Add(this.label_Email);
+            this.panel1.Controls.Add(this.label_RegisteredBusiness);
+            this.panel1.Controls.Add(this.label_ClientNameSearchBar);
+            this.panel1.Controls.Add(this.dataGrid_Quotation);
+            this.panel1.Location = new System.Drawing.Point(6, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(793, 446);
+            this.panel1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.p2_label_ProductQuantity);
+            this.panel2.Controls.Add(this.p2_textBox_ProductQuantity);
+            this.panel2.Controls.Add(this.p2_label_ProductDiscount);
+            this.panel2.Controls.Add(this.p2_textBox_ProductDiscount);
+            this.panel2.Controls.Add(this.p2_button_UpdateProduct);
+            this.panel2.Controls.Add(this.p2_button_RemoveProduct);
+            this.panel2.Controls.Add(this.p2_button_ClearFields);
+            this.panel2.Controls.Add(this.p2_button_AddProductToQuotation);
+            this.panel2.Controls.Add(this.p2_label_ProductPrice);
+            this.panel2.Controls.Add(this.p2_textBox_ProductPrice);
+            this.panel2.Controls.Add(this.p2_label_ProductSpecifications);
+            this.panel2.Controls.Add(this.p2_textBox_ProductSpecifications);
+            this.panel2.Controls.Add(this.p2_label_ProductDescription);
+            this.panel2.Controls.Add(this.p2_TextBox_ProductDescription);
+            this.panel2.Controls.Add(this.p2_label_ProductName);
+            this.panel2.Controls.Add(this.p2_textBox_ProductName);
+            this.panel2.Controls.Add(this.p2_button_CreateProductInData);
+            this.panel2.Controls.Add(this.listBox1);
+            this.panel2.Location = new System.Drawing.Point(805, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(302, 446);
+            this.panel2.TabIndex = 29;
+            // 
+            // p2_label_ProductQuantity
+            // 
+            this.p2_label_ProductQuantity.AutoSize = true;
+            this.p2_label_ProductQuantity.Location = new System.Drawing.Point(4, 290);
+            this.p2_label_ProductQuantity.Name = "p2_label_ProductQuantity";
+            this.p2_label_ProductQuantity.Size = new System.Drawing.Size(49, 13);
+            this.p2_label_ProductQuantity.TabIndex = 46;
+            this.p2_label_ProductQuantity.Text = "Cantidad";
+            // 
+            // p2_textBox_ProductQuantity
+            // 
+            this.p2_textBox_ProductQuantity.Location = new System.Drawing.Point(7, 306);
+            this.p2_textBox_ProductQuantity.Name = "p2_textBox_ProductQuantity";
+            this.p2_textBox_ProductQuantity.Size = new System.Drawing.Size(80, 20);
+            this.p2_textBox_ProductQuantity.TabIndex = 35;
+            // 
+            // p2_label_ProductDiscount
+            // 
+            this.p2_label_ProductDiscount.AutoSize = true;
+            this.p2_label_ProductDiscount.Location = new System.Drawing.Point(213, 290);
+            this.p2_label_ProductDiscount.Name = "p2_label_ProductDiscount";
+            this.p2_label_ProductDiscount.Size = new System.Drawing.Size(76, 13);
+            this.p2_label_ProductDiscount.TabIndex = 44;
+            this.p2_label_ProductDiscount.Text = "Descuento (%)";
+            // 
+            // p2_textBox_ProductDiscount
+            // 
+            this.p2_textBox_ProductDiscount.Location = new System.Drawing.Point(216, 306);
+            this.p2_textBox_ProductDiscount.Name = "p2_textBox_ProductDiscount";
+            this.p2_textBox_ProductDiscount.Size = new System.Drawing.Size(80, 20);
+            this.p2_textBox_ProductDiscount.TabIndex = 39;
+            // 
+            // p2_button_UpdateProduct
+            // 
+            this.p2_button_UpdateProduct.Location = new System.Drawing.Point(7, 134);
+            this.p2_button_UpdateProduct.Name = "p2_button_UpdateProduct";
+            this.p2_button_UpdateProduct.Size = new System.Drawing.Size(122, 23);
+            this.p2_button_UpdateProduct.TabIndex = 42;
+            this.p2_button_UpdateProduct.Text = "Actualizar Producto";
+            this.p2_button_UpdateProduct.UseVisualStyleBackColor = true;
+            // 
+            // p2_button_RemoveProduct
+            // 
+            this.p2_button_RemoveProduct.Location = new System.Drawing.Point(174, 134);
+            this.p2_button_RemoveProduct.Name = "p2_button_RemoveProduct";
+            this.p2_button_RemoveProduct.Size = new System.Drawing.Size(122, 23);
+            this.p2_button_RemoveProduct.TabIndex = 41;
+            this.p2_button_RemoveProduct.Text = "Eliminar Producto";
+            this.p2_button_RemoveProduct.UseVisualStyleBackColor = true;
+            // 
+            // p2_button_ClearFields
+            // 
+            this.p2_button_ClearFields.Location = new System.Drawing.Point(7, 390);
+            this.p2_button_ClearFields.Name = "p2_button_ClearFields";
+            this.p2_button_ClearFields.Size = new System.Drawing.Size(289, 23);
+            this.p2_button_ClearFields.TabIndex = 40;
+            this.p2_button_ClearFields.Text = "Limpiar Campos";
+            this.p2_button_ClearFields.UseVisualStyleBackColor = true;
+            // 
+            // p2_button_AddProductToQuotation
+            // 
+            this.p2_button_AddProductToQuotation.Location = new System.Drawing.Point(7, 361);
+            this.p2_button_AddProductToQuotation.Name = "p2_button_AddProductToQuotation";
+            this.p2_button_AddProductToQuotation.Size = new System.Drawing.Size(289, 23);
+            this.p2_button_AddProductToQuotation.TabIndex = 39;
+            this.p2_button_AddProductToQuotation.Text = "Añadir Producto a Cotización";
+            this.p2_button_AddProductToQuotation.UseVisualStyleBackColor = true;
+            this.p2_button_AddProductToQuotation.Click += new System.EventHandler(this.p2_button_AddProductToQuotation_Click);
+            // 
+            // p2_label_ProductPrice
+            // 
+            this.p2_label_ProductPrice.AutoSize = true;
+            this.p2_label_ProductPrice.Location = new System.Drawing.Point(111, 290);
+            this.p2_label_ProductPrice.Name = "p2_label_ProductPrice";
+            this.p2_label_ProductPrice.Size = new System.Drawing.Size(76, 13);
+            this.p2_label_ProductPrice.TabIndex = 36;
+            this.p2_label_ProductPrice.Text = "Precio Unitario";
+            // 
+            // p2_textBox_ProductPrice
+            // 
+            this.p2_textBox_ProductPrice.Location = new System.Drawing.Point(93, 306);
+            this.p2_textBox_ProductPrice.Name = "p2_textBox_ProductPrice";
+            this.p2_textBox_ProductPrice.Size = new System.Drawing.Size(117, 20);
+            this.p2_textBox_ProductPrice.TabIndex = 37;
+            // 
+            // p2_label_ProductSpecifications
+            // 
+            this.p2_label_ProductSpecifications.AutoSize = true;
+            this.p2_label_ProductSpecifications.Location = new System.Drawing.Point(4, 251);
+            this.p2_label_ProductSpecifications.Name = "p2_label_ProductSpecifications";
+            this.p2_label_ProductSpecifications.Size = new System.Drawing.Size(136, 13);
+            this.p2_label_ProductSpecifications.TabIndex = 34;
+            this.p2_label_ProductSpecifications.Text = "Especificaciones (Medidas)";
+            // 
+            // p2_textBox_ProductSpecifications
+            // 
+            this.p2_textBox_ProductSpecifications.Location = new System.Drawing.Point(7, 267);
+            this.p2_textBox_ProductSpecifications.Name = "p2_textBox_ProductSpecifications";
+            this.p2_textBox_ProductSpecifications.Size = new System.Drawing.Size(289, 20);
+            this.p2_textBox_ProductSpecifications.TabIndex = 33;
+            // 
+            // p2_label_ProductDescription
+            // 
+            this.p2_label_ProductDescription.AutoSize = true;
+            this.p2_label_ProductDescription.Location = new System.Drawing.Point(4, 212);
+            this.p2_label_ProductDescription.Name = "p2_label_ProductDescription";
+            this.p2_label_ProductDescription.Size = new System.Drawing.Size(124, 13);
+            this.p2_label_ProductDescription.TabIndex = 32;
+            this.p2_label_ProductDescription.Text = "Descripción de Producto";
+            // 
+            // p2_TextBox_ProductDescription
+            // 
+            this.p2_TextBox_ProductDescription.Location = new System.Drawing.Point(7, 228);
+            this.p2_TextBox_ProductDescription.Name = "p2_TextBox_ProductDescription";
+            this.p2_TextBox_ProductDescription.Size = new System.Drawing.Size(289, 20);
+            this.p2_TextBox_ProductDescription.TabIndex = 31;
+            // 
+            // p2_label_ProductName
+            // 
+            this.p2_label_ProductName.AutoSize = true;
+            this.p2_label_ProductName.Location = new System.Drawing.Point(4, 173);
+            this.p2_label_ProductName.Name = "p2_label_ProductName";
+            this.p2_label_ProductName.Size = new System.Drawing.Size(105, 13);
+            this.p2_label_ProductName.TabIndex = 30;
+            this.p2_label_ProductName.Text = "Nombre de Producto";
+            // 
+            // p2_textBox_ProductName
+            // 
+            this.p2_textBox_ProductName.Location = new System.Drawing.Point(7, 189);
+            this.p2_textBox_ProductName.Name = "p2_textBox_ProductName";
+            this.p2_textBox_ProductName.Size = new System.Drawing.Size(289, 20);
+            this.p2_textBox_ProductName.TabIndex = 28;
+            // 
+            // p2_button_CreateProductInData
+            // 
+            this.p2_button_CreateProductInData.Location = new System.Drawing.Point(7, 332);
+            this.p2_button_CreateProductInData.Name = "p2_button_CreateProductInData";
+            this.p2_button_CreateProductInData.Size = new System.Drawing.Size(289, 23);
+            this.p2_button_CreateProductInData.TabIndex = 27;
+            this.p2_button_CreateProductInData.Text = "Registrar Producto en Listado";
+            this.p2_button_CreateProductInData.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(7, 7);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(289, 121);
+            this.listBox1.TabIndex = 0;
+            // 
+            // Item
+            // 
+            this.Item.FillWeight = 20.52175F;
+            this.Item.HeaderText = "Item";
+            this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
+            this.Item.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Quantity
+            // 
+            this.Quantity.FillWeight = 30F;
+            this.Quantity.HeaderText = "Cantidad";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            // 
+            // ProductName
+            // 
+            this.ProductName.HeaderText = "Nombre";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.FillWeight = 57.98869F;
+            this.UnitPrice.HeaderText = "Precio Unit.";
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.FillWeight = 57.98869F;
+            this.TotalPrice.HeaderText = "Precio Total";
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            // 
+            // Discount
+            // 
+            this.Discount.FillWeight = 57.98869F;
+            this.Discount.HeaderText = "Descuento";
+            this.Discount.Name = "Discount";
+            this.Discount.ReadOnly = true;
+            // 
+            // FinalPrice
+            // 
+            this.FinalPrice.FillWeight = 57.98869F;
+            this.FinalPrice.HeaderText = "Precio Final";
+            this.FinalPrice.Name = "FinalPrice";
+            this.FinalPrice.ReadOnly = true;
+            // 
             // CreateQuotation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Button_DeleteClient);
-            this.Controls.Add(this.button_AddProduct);
-            this.Controls.Add(this.label_TotalPriceData);
-            this.Controls.Add(this.label_IvaData);
-            this.Controls.Add(this.label_NetTotalData);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button_GeneratePDF);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGrid_Quotation);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label_RegisteredBusinessData);
-            this.Controls.Add(this.label_PhoneNumberData);
-            this.Controls.Add(this.label_EmailData);
-            this.Controls.Add(this.DateEmitted);
-            this.Controls.Add(this.textBox_ClientNameSearchBar);
-            this.Controls.Add(this.listBox_ClientNameList);
-            this.Controls.Add(this.button_NewClient);
-            this.Controls.Add(this.textBox_QuotationId);
-            this.Controls.Add(this.label_QuotationId);
-            this.Controls.Add(this.label_DateEmitted);
-            this.Controls.Add(this.label_TotalPrice);
-            this.Controls.Add(this.label_IvaPercentage);
-            this.Controls.Add(this.label_NetTotal);
-            this.Controls.Add(this.label_PhoneNumber);
-            this.Controls.Add(this.label_Email);
-            this.Controls.Add(this.label_RegisteredBusiness);
-            this.Controls.Add(this.label_ClientNameSearchBar);
+            this.ClientSize = new System.Drawing.Size(1114, 423);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Name = "CreateQuotation";
             this.Text = "Sistema de Gestión Financiera ROHAN - Cotización Nueva";
             this.Load += new System.EventHandler(this.MainScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -439,16 +644,36 @@
         private System.Windows.Forms.Label label_NetTotalData;
         private System.Windows.Forms.Label label_IvaData;
         private System.Windows.Forms.Label label_TotalPriceData;
-        private System.Windows.Forms.Button button_AddProduct;
         private System.Windows.Forms.Button Button_DeleteClient;
         private System.Windows.Forms.BindingSource clientBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button p2_button_CreateProductInData;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label p2_label_ProductPrice;
+        private System.Windows.Forms.TextBox p2_textBox_ProductPrice;
+        private System.Windows.Forms.Label p2_label_ProductSpecifications;
+        private System.Windows.Forms.TextBox p2_textBox_ProductSpecifications;
+        private System.Windows.Forms.Label p2_label_ProductDescription;
+        private System.Windows.Forms.TextBox p2_TextBox_ProductDescription;
+        private System.Windows.Forms.Label p2_label_ProductName;
+        private System.Windows.Forms.TextBox p2_textBox_ProductName;
+        private System.Windows.Forms.Button p2_button_ClearFields;
+        private System.Windows.Forms.Button p2_button_AddProductToQuotation;
+        private System.Windows.Forms.Button p2_button_UpdateProduct;
+        private System.Windows.Forms.Button p2_button_RemoveProduct;
+        private System.Windows.Forms.Label p2_label_ProductDiscount;
+        private System.Windows.Forms.TextBox p2_textBox_ProductDiscount;
+        private System.Windows.Forms.Label p2_label_ProductQuantity;
+        private System.Windows.Forms.TextBox p2_textBox_ProductQuantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FinalPrice;
     }
 }
 
