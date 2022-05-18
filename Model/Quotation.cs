@@ -121,6 +121,7 @@ namespace SGF_ROHAN_WF.Model
 
     }
 
+    [Serializable]
     public class Entry
     {
         public int ItemNumber;

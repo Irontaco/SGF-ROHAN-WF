@@ -40,7 +40,7 @@ namespace SGF_ROHAN_WF
                 return;
             }
 
-            if (DataPersistence.ClientRepository.CreateClient(newCli))
+            if (DataPersistence.ClientRepositoryDbHandler.CreateClient(newCli))
             {
                 Console.WriteLine("We created a new client successfully!");
             }

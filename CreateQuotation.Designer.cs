@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label_ClientNameSearchBar = new System.Windows.Forms.Label();
             this.label_RegisteredBusiness = new System.Windows.Forms.Label();
             this.label_Email = new System.Windows.Forms.Label();
@@ -47,6 +48,14 @@
             this.label_RegisteredBusinessData = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid_Quotation = new System.Windows.Forms.DataGridView();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.button_GeneratePDF = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -55,7 +64,12 @@
             this.label_TotalPriceData = new System.Windows.Forms.Label();
             this.Button_DeleteClient = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_DeleteEntry = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.p2_Textbox_ProdSpecsVertical = new System.Windows.Forms.TextBox();
+            this.p2_label_specsX = new System.Windows.Forms.Label();
+            this.p2_Combobox_Scale = new System.Windows.Forms.ComboBox();
             this.p2_label_ProductQuantity = new System.Windows.Forms.Label();
             this.p2_textBox_ProductQuantity = new System.Windows.Forms.TextBox();
             this.p2_label_ProductDiscount = new System.Windows.Forms.Label();
@@ -67,24 +81,21 @@
             this.p2_label_ProductPrice = new System.Windows.Forms.Label();
             this.p2_textBox_ProductPrice = new System.Windows.Forms.TextBox();
             this.p2_label_ProductSpecifications = new System.Windows.Forms.Label();
-            this.p2_textBox_ProductSpecifications = new System.Windows.Forms.TextBox();
+            this.p2_TextBox_ProdSpecsHorizontal = new System.Windows.Forms.TextBox();
             this.p2_label_ProductDescription = new System.Windows.Forms.Label();
             this.p2_TextBox_ProductDescription = new System.Windows.Forms.TextBox();
             this.p2_label_ProductName = new System.Windows.Forms.Label();
             this.p2_textBox_ProductName = new System.Windows.Forms.TextBox();
             this.p2_button_CreateProductInData = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSet1 = new SGF_ROHAN_WF.DataSet1();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.cLIENTTableAdapter = new SGF_ROHAN_WF.DataSet1TableAdapters.CLIENTTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // label_ClientNameSearchBar
@@ -126,7 +137,7 @@
             // label_NetTotal
             // 
             this.label_NetTotal.AutoSize = true;
-            this.label_NetTotal.Location = new System.Drawing.Point(629, 342);
+            this.label_NetTotal.Location = new System.Drawing.Point(669, 342);
             this.label_NetTotal.Name = "label_NetTotal";
             this.label_NetTotal.Size = new System.Drawing.Size(37, 13);
             this.label_NetTotal.TabIndex = 4;
@@ -135,7 +146,7 @@
             // label_IvaPercentage
             // 
             this.label_IvaPercentage.AutoSize = true;
-            this.label_IvaPercentage.Location = new System.Drawing.Point(642, 355);
+            this.label_IvaPercentage.Location = new System.Drawing.Point(682, 355);
             this.label_IvaPercentage.Name = "label_IvaPercentage";
             this.label_IvaPercentage.Size = new System.Drawing.Size(24, 13);
             this.label_IvaPercentage.TabIndex = 5;
@@ -144,7 +155,7 @@
             // label_TotalPrice
             // 
             this.label_TotalPrice.AutoSize = true;
-            this.label_TotalPrice.Location = new System.Drawing.Point(624, 368);
+            this.label_TotalPrice.Location = new System.Drawing.Point(664, 368);
             this.label_TotalPrice.Name = "label_TotalPrice";
             this.label_TotalPrice.Size = new System.Drawing.Size(42, 13);
             this.label_TotalPrice.TabIndex = 6;
@@ -250,7 +261,6 @@
             // 
             this.dataGrid_Quotation.AllowDrop = true;
             this.dataGrid_Quotation.AllowUserToAddRows = false;
-            this.dataGrid_Quotation.AllowUserToDeleteRows = false;
             this.dataGrid_Quotation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid_Quotation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_Quotation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -269,6 +279,61 @@
             this.dataGrid_Quotation.Size = new System.Drawing.Size(776, 150);
             this.dataGrid_Quotation.TabIndex = 19;
             this.dataGrid_Quotation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_Quotation_CellContentClick);
+            // 
+            // Item
+            // 
+            this.Item.FillWeight = 20.52175F;
+            this.Item.HeaderText = "Item";
+            this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
+            this.Item.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Quantity
+            // 
+            this.Quantity.FillWeight = 30F;
+            this.Quantity.HeaderText = "Cantidad";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            // 
+            // ProductName
+            // 
+            this.ProductName.HeaderText = "Nombre";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.FillWeight = 57.98869F;
+            this.UnitPrice.HeaderText = "Precio Unit.";
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.FillWeight = 57.98869F;
+            this.TotalPrice.HeaderText = "Precio Total";
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            // 
+            // Discount
+            // 
+            this.Discount.FillWeight = 57.98869F;
+            this.Discount.HeaderText = "Descuento";
+            this.Discount.Name = "Discount";
+            this.Discount.ReadOnly = true;
+            // 
+            // FinalPrice
+            // 
+            this.FinalPrice.FillWeight = 57.98869F;
+            this.FinalPrice.HeaderText = "Precio Final";
+            this.FinalPrice.Name = "FinalPrice";
+            this.FinalPrice.ReadOnly = true;
             // 
             // button2
             // 
@@ -301,7 +366,7 @@
             // label_NetTotalData
             // 
             this.label_NetTotalData.AutoSize = true;
-            this.label_NetTotalData.Location = new System.Drawing.Point(672, 342);
+            this.label_NetTotalData.Location = new System.Drawing.Point(712, 342);
             this.label_NetTotalData.Name = "label_NetTotalData";
             this.label_NetTotalData.Size = new System.Drawing.Size(30, 13);
             this.label_NetTotalData.TabIndex = 23;
@@ -310,7 +375,7 @@
             // label_IvaData
             // 
             this.label_IvaData.AutoSize = true;
-            this.label_IvaData.Location = new System.Drawing.Point(672, 355);
+            this.label_IvaData.Location = new System.Drawing.Point(712, 355);
             this.label_IvaData.Name = "label_IvaData";
             this.label_IvaData.Size = new System.Drawing.Size(30, 13);
             this.label_IvaData.TabIndex = 24;
@@ -319,7 +384,7 @@
             // label_TotalPriceData
             // 
             this.label_TotalPriceData.AutoSize = true;
-            this.label_TotalPriceData.Location = new System.Drawing.Point(672, 368);
+            this.label_TotalPriceData.Location = new System.Drawing.Point(712, 368);
             this.label_TotalPriceData.Name = "label_TotalPriceData";
             this.label_TotalPriceData.Size = new System.Drawing.Size(30, 13);
             this.label_TotalPriceData.TabIndex = 25;
@@ -337,6 +402,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button_DeleteEntry);
             this.panel1.Controls.Add(this.Button_DeleteClient);
             this.panel1.Controls.Add(this.label_TotalPriceData);
             this.panel1.Controls.Add(this.label_IvaData);
@@ -368,8 +434,22 @@
             this.panel1.Size = new System.Drawing.Size(793, 446);
             this.panel1.TabIndex = 28;
             // 
+            // button_DeleteEntry
+            // 
+            this.button_DeleteEntry.Location = new System.Drawing.Point(6, 345);
+            this.button_DeleteEntry.Name = "button_DeleteEntry";
+            this.button_DeleteEntry.Size = new System.Drawing.Size(170, 23);
+            this.button_DeleteEntry.TabIndex = 28;
+            this.button_DeleteEntry.Text = "Eliminar Producto de Cotización";
+            this.button_DeleteEntry.UseVisualStyleBackColor = true;
+            this.button_DeleteEntry.Click += new System.EventHandler(this.button_DeleteEntry_Click);
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.p2_Textbox_ProdSpecsVertical);
+            this.panel2.Controls.Add(this.p2_label_specsX);
+            this.panel2.Controls.Add(this.p2_Combobox_Scale);
             this.panel2.Controls.Add(this.p2_label_ProductQuantity);
             this.panel2.Controls.Add(this.p2_textBox_ProductQuantity);
             this.panel2.Controls.Add(this.p2_label_ProductDiscount);
@@ -381,7 +461,7 @@
             this.panel2.Controls.Add(this.p2_label_ProductPrice);
             this.panel2.Controls.Add(this.p2_textBox_ProductPrice);
             this.panel2.Controls.Add(this.p2_label_ProductSpecifications);
-            this.panel2.Controls.Add(this.p2_textBox_ProductSpecifications);
+            this.panel2.Controls.Add(this.p2_TextBox_ProdSpecsHorizontal);
             this.panel2.Controls.Add(this.p2_label_ProductDescription);
             this.panel2.Controls.Add(this.p2_TextBox_ProductDescription);
             this.panel2.Controls.Add(this.p2_label_ProductName);
@@ -392,6 +472,43 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(302, 446);
             this.panel2.TabIndex = 29;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(196, 251);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.TabIndex = 51;
+            this.label2.Text = "Escala";
+            // 
+            // p2_Textbox_ProdSpecsVertical
+            // 
+            this.p2_Textbox_ProdSpecsVertical.Location = new System.Drawing.Point(113, 267);
+            this.p2_Textbox_ProdSpecsVertical.Name = "p2_Textbox_ProdSpecsVertical";
+            this.p2_Textbox_ProdSpecsVertical.Size = new System.Drawing.Size(80, 20);
+            this.p2_Textbox_ProdSpecsVertical.TabIndex = 50;
+            // 
+            // p2_label_specsX
+            // 
+            this.p2_label_specsX.AutoSize = true;
+            this.p2_label_specsX.Location = new System.Drawing.Point(93, 272);
+            this.p2_label_specsX.Name = "p2_label_specsX";
+            this.p2_label_specsX.Size = new System.Drawing.Size(14, 13);
+            this.p2_label_specsX.TabIndex = 49;
+            this.p2_label_specsX.Text = "X";
+            // 
+            // p2_Combobox_Scale
+            // 
+            this.p2_Combobox_Scale.FormattingEnabled = true;
+            this.p2_Combobox_Scale.Items.AddRange(new object[] {
+            "Metros",
+            "Cm",
+            "Mm"});
+            this.p2_Combobox_Scale.Location = new System.Drawing.Point(199, 267);
+            this.p2_Combobox_Scale.Name = "p2_Combobox_Scale";
+            this.p2_Combobox_Scale.Size = new System.Drawing.Size(97, 21);
+            this.p2_Combobox_Scale.TabIndex = 48;
             // 
             // p2_label_ProductQuantity
             // 
@@ -481,18 +598,18 @@
             // p2_label_ProductSpecifications
             // 
             this.p2_label_ProductSpecifications.AutoSize = true;
-            this.p2_label_ProductSpecifications.Location = new System.Drawing.Point(4, 251);
+            this.p2_label_ProductSpecifications.Location = new System.Drawing.Point(41, 251);
             this.p2_label_ProductSpecifications.Name = "p2_label_ProductSpecifications";
-            this.p2_label_ProductSpecifications.Size = new System.Drawing.Size(136, 13);
+            this.p2_label_ProductSpecifications.Size = new System.Drawing.Size(125, 13);
             this.p2_label_ProductSpecifications.TabIndex = 34;
-            this.p2_label_ProductSpecifications.Text = "Especificaciones (Medidas)";
+            this.p2_label_ProductSpecifications.Text = "Especificaciones ( 0 x 0 )";
             // 
-            // p2_textBox_ProductSpecifications
+            // p2_TextBox_ProdSpecsHorizontal
             // 
-            this.p2_textBox_ProductSpecifications.Location = new System.Drawing.Point(7, 267);
-            this.p2_textBox_ProductSpecifications.Name = "p2_textBox_ProductSpecifications";
-            this.p2_textBox_ProductSpecifications.Size = new System.Drawing.Size(289, 20);
-            this.p2_textBox_ProductSpecifications.TabIndex = 33;
+            this.p2_TextBox_ProdSpecsHorizontal.Location = new System.Drawing.Point(7, 267);
+            this.p2_TextBox_ProdSpecsHorizontal.Name = "p2_TextBox_ProdSpecsHorizontal";
+            this.p2_TextBox_ProdSpecsHorizontal.Size = new System.Drawing.Size(80, 20);
+            this.p2_TextBox_ProdSpecsHorizontal.TabIndex = 33;
             // 
             // p2_label_ProductDescription
             // 
@@ -543,60 +660,19 @@
             this.listBox1.Size = new System.Drawing.Size(289, 121);
             this.listBox1.TabIndex = 0;
             // 
-            // Item
+            // dataSet1
             // 
-            this.Item.FillWeight = 20.52175F;
-            this.Item.HeaderText = "Item";
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            this.Item.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataSet1.DataSetName = "DataSet1";
+            this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // Quantity
+            // bindingSource1
             // 
-            this.Quantity.FillWeight = 30F;
-            this.Quantity.HeaderText = "Cantidad";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
+            this.bindingSource1.DataMember = "CLIENT";
+            this.bindingSource1.DataSource = this.dataSet1;
             // 
-            // ProductName
+            // cLIENTTableAdapter
             // 
-            this.ProductName.HeaderText = "Nombre";
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Descripción";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // UnitPrice
-            // 
-            this.UnitPrice.FillWeight = 57.98869F;
-            this.UnitPrice.HeaderText = "Precio Unit.";
-            this.UnitPrice.Name = "UnitPrice";
-            this.UnitPrice.ReadOnly = true;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.FillWeight = 57.98869F;
-            this.TotalPrice.HeaderText = "Precio Total";
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            // 
-            // Discount
-            // 
-            this.Discount.FillWeight = 57.98869F;
-            this.Discount.HeaderText = "Descuento";
-            this.Discount.Name = "Discount";
-            this.Discount.ReadOnly = true;
-            // 
-            // FinalPrice
-            // 
-            this.FinalPrice.FillWeight = 57.98869F;
-            this.FinalPrice.HeaderText = "Precio Final";
-            this.FinalPrice.Name = "FinalPrice";
-            this.FinalPrice.ReadOnly = true;
+            this.cLIENTTableAdapter.ClearBeforeFill = true;
             // 
             // CreateQuotation
             // 
@@ -613,6 +689,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -653,7 +731,7 @@
         private System.Windows.Forms.Label p2_label_ProductPrice;
         private System.Windows.Forms.TextBox p2_textBox_ProductPrice;
         private System.Windows.Forms.Label p2_label_ProductSpecifications;
-        private System.Windows.Forms.TextBox p2_textBox_ProductSpecifications;
+        private System.Windows.Forms.TextBox p2_TextBox_ProdSpecsHorizontal;
         private System.Windows.Forms.Label p2_label_ProductDescription;
         private System.Windows.Forms.TextBox p2_TextBox_ProductDescription;
         private System.Windows.Forms.Label p2_label_ProductName;
@@ -674,6 +752,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
         private System.Windows.Forms.DataGridViewTextBoxColumn FinalPrice;
+        private System.Windows.Forms.Button button_DeleteEntry;
+        private System.Windows.Forms.Label p2_label_specsX;
+        private System.Windows.Forms.ComboBox p2_Combobox_Scale;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox p2_Textbox_ProdSpecsVertical;
+        private DataSet1 dataSet1;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private DataSet1TableAdapters.CLIENTTableAdapter cLIENTTableAdapter;
     }
 }
 

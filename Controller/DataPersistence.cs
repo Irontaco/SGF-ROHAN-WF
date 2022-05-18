@@ -13,6 +13,7 @@ namespace SGF_ROHAN_WF.Controller
         public SessionData SavedData;
 
         public ClientRepositorySessionHandler ClientRepository;
+        public ClientRepositoryDbHandler ClientRepositoryDbHandler;
 
         public DataPersistence()
         {
@@ -30,6 +31,7 @@ namespace SGF_ROHAN_WF.Controller
             }
 
             ClientRepository = new ClientRepositorySessionHandler(this);
+            ClientRepositoryDbHandler = new ClientRepositoryDbHandler(this);
 
         }
 

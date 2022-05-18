@@ -42,6 +42,8 @@ namespace SGF_ROHAN_WF
             label_TotalPriceData.Text = "0 CLP";
             label_NetTotalData.Text = "0 CLP";
             label_IvaData.Text = "19.0 %";
+            p2_Combobox_Scale.SelectedIndex = 0;
+
 
             CurrentDataTable = new DataTable();
             //DEBUG_CreateDummyData();
@@ -94,7 +96,13 @@ namespace SGF_ROHAN_WF
         {
             ListBoxClientNames = new List<string>();
 
-            foreach (Client client in dataPersistence.ClientRepository.GetAllClients())
+            if(dataPersistence.ClientRepositoryDbHandler.GetAllClients() == null)
+            {
+                listBox_ClientNameList.DataSource = null;
+                return;
+            }
+
+            foreach (Client client in dataPersistence.ClientRepositoryDbHandler.GetAllClients())
             {
                 if (!client.IsDeleted)
                 {
@@ -130,7 +138,8 @@ namespace SGF_ROHAN_WF
 
         private void listBox_ClientNameList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
+            SelectedClient = new Client();
+            SelectedClient.Names = (string)listBox_ClientNameList.SelectedValue;
             UpdateSelectedClientData();
 
         }
@@ -141,7 +150,7 @@ namespace SGF_ROHAN_WF
             
             if(DialogConfirmation == DialogResult.Yes)
             {
-                dataPersistence.ClientRepository.DeleteClient(SelectedClient.Id);
+                dataPersistence.ClientRepositoryDbHandler.DeleteClient(SelectedClient.Names);
                 UpdateListBoxContents();
             }
             else
@@ -182,7 +191,7 @@ namespace SGF_ROHAN_WF
         {
             string enProductName = p2_textBox_ProductName.Text;
             string enProductDescription = p2_TextBox_ProductDescription.Text;
-            string enProductSpecifications = p2_textBox_ProductSpecifications.Text;
+            string enProductSpecifications = p2_TextBox_ProdSpecsHorizontal.Text + "x" + p2_Textbox_ProdSpecsVertical.Text + " " + p2_Combobox_Scale.SelectedItem.ToString();
             float enProductUnitPrice = int.Parse(p2_textBox_ProductPrice.Text);
 
             int entryQuantity = int.Parse(p2_textBox_ProductQuantity.Text);
@@ -195,7 +204,7 @@ namespace SGF_ROHAN_WF
                 var index = dataGrid_Quotation.Rows.Add();
                 dataGrid_Quotation.Rows[index].Cells["Item"].Value = generatedEntry.ItemNumber;
                 dataGrid_Quotation.Rows[index].Cells["Quantity"].Value = generatedEntry.Quantity;
-                dataGrid_Quotation.Rows[index].Cells["ProductName"].Value = generatedEntry.RowProduct.ProductName + "(Medidas = " + generatedEntry.RowProduct.ProductSpecifications + ")";
+                dataGrid_Quotation.Rows[index].Cells["ProductName"].Value = generatedEntry.RowProduct.ProductName + " (" + generatedEntry.RowProduct.ProductSpecifications + ")";
                 dataGrid_Quotation.Rows[index].Cells["Description"].Value = generatedEntry.RowProduct.ProductDescription;
                 dataGrid_Quotation.Rows[index].Cells["UnitPrice"].Value = generatedEntry.RowProduct.UnitPrice;
                 dataGrid_Quotation.Rows[index].Cells["TotalPrice"].Value = generatedEntry.TotalPrice;
@@ -226,5 +235,13 @@ namespace SGF_ROHAN_WF
         {
 
         }
+
+        private void button_DeleteEntry_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+                    }
     }
 }
