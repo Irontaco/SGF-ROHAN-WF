@@ -13,6 +13,7 @@ namespace SGF_ROHAN_WF.Controller
         public SessionData SavedData;
 
         public ClientRepositorySessionHandler ClientRepository;
+        public QuotationRepositorySessionHandler QuotationRepository;
 
         public DataPersistence()
         {
@@ -30,13 +31,16 @@ namespace SGF_ROHAN_WF.Controller
             }
 
             ClientRepository = new ClientRepositorySessionHandler(this);
+            QuotationRepository = new QuotationRepositorySessionHandler(this);
 
         }
 
         public bool CommitChanges()
         {
-
-            DataSerializer.SaveSessionData(CurrentData, "sessionData");
+            if (DataSerializer.SaveSessionData(CurrentData, "sessionData"))
+            {
+                return true;
+            }
 
             return false;
         }

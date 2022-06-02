@@ -55,6 +55,7 @@
     <Compile Include="Controller\ClientRepositorySessionHandler.cs" />
     <Compile Include="Controller\DataPersistence.cs" />
     <Compile Include="Controller\DataSerializer.cs" />
+    <Compile Include="Controller\QuotationRepositorySessionHandler.cs" />
     <Compile Include="CreateClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +90,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CreateQuotation.datasource" />
     <None Include="Properties\DataSources\SGF_ROHAN_WF.Model.Client.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

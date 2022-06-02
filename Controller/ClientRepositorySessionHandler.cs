@@ -10,7 +10,7 @@ namespace SGF_ROHAN_WF.Controller
 {
     public class ClientRepositorySessionHandler : IClientRepository
     {
-        DataPersistence DataPersistence;
+        private readonly DataPersistence DataPersistence;
         private Dictionary<int, Client> ClientData;
 
         public ClientRepositorySessionHandler(DataPersistence dataPers)
@@ -21,9 +21,9 @@ namespace SGF_ROHAN_WF.Controller
             
         }
         
-        public void OnClientDataChanged()
+        public bool OnClientDataChanged()
         {
-            DataPersistence.CommitChanges();
+            return DataPersistence.CommitChanges();
         }
 
 
@@ -35,9 +35,8 @@ namespace SGF_ROHAN_WF.Controller
                 client.Id = ClientData.Count + 1;
 
                 ClientData.Add(client.Id, client);
-                OnClientDataChanged();
 
-                return true;
+                return OnClientDataChanged();
             }
 
             return false;
@@ -51,9 +50,8 @@ namespace SGF_ROHAN_WF.Controller
                 try
                 {
                     ClientData[id].IsDeleted = true;
-                    OnClientDataChanged();
+                    return OnClientDataChanged();
 
-                    return true;
                 }
                 catch (ArgumentNullException)
                 {
@@ -144,8 +142,7 @@ namespace SGF_ROHAN_WF.Controller
                     if(KVP.Key == id)
                     {
                         ClientData[KVP.Key] = updatedClientData;
-                        OnClientDataChanged();
-                        return true;
+                        return OnClientDataChanged();
                     }
                 }
             }

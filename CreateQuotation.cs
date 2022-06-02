@@ -20,39 +20,41 @@ namespace SGF_ROHAN_WF
 
         DataPersistence dataPersistence;
 
-
         Quotation CurrentQuotation;
         Client SelectedClient;
         List<string> ListBoxClientNames;
 
         public DataTable CurrentDataTable;
+        public DataGridView DataGrid;
+
+        public Dictionary<DataGridViewRow, Entry> RowEntryPairs;
 
         public CreateQuotation(DataPersistence dataPers)
         {
             CurrentQuotation = new Quotation();
             dataPersistence = dataPers;
             InitializeComponent();
+            DataGrid = dataGrid_Quotation;
+            RowEntryPairs = new Dictionary<DataGridViewRow, Entry>();
+
         }
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
 
-            DateEmitted.Text = "Aún no emitida";
-            textBox_QuotationId.Text = "1";
+            DateEmitted.Text = DateTime.Now.ToString();
+            label_QuotationIdData.Text = dataPersistence.QuotationRepository.GetAllQuotations().Count.ToString();
             label_TotalPriceData.Text = "0 CLP";
             label_NetTotalData.Text = "0 CLP";
             label_IvaData.Text = "19.0 %";
 
-            CurrentDataTable = new DataTable();
-            //DEBUG_CreateDummyData();
-
             UpdateListBoxContents();
             UpdateSelectedClientData();
 
+            p2_comboBox_ProductSpecifications3.SelectedIndex = 0;
+
 
         }
-
-
 
         //Calls PDF generator
         private void button_GeneratePDF_Click(object sender, EventArgs e)
@@ -162,9 +164,14 @@ namespace SGF_ROHAN_WF
                         return false;
 
                     }
-                    if (!p2_textBox_ProductPrice.Text.All(char.IsDigit) || !p2_textBox_ProductDiscount.Text.All(char.IsDigit) || !p2_textBox_ProductQuantity.Text.All(char.IsDigit))
+                    if (!p2_textBox_ProductPrice.Text.All(char.IsDigit) 
+                        || !p2_textBox_ProductDiscount.Text.All(char.IsDigit) 
+                        || !p2_textBox_ProductQuantity.Text.All(char.IsDigit)
+                        || !p2_textBox_ProductSpecifications1.Text.All(char.IsDigit)
+                        || !p2_textBox_ProductSpecifications2.Text.All(char.IsDigit)
+                        )
                     {
-                        MessageBox.Show("No se pueden añadir valores no númericos al Precio o Descuento.");
+                        MessageBox.Show("No se pueden añadir valores no númericos al Precio, Descuento, o Específicaiones.");
                     }
                 }
             }
@@ -173,58 +180,141 @@ namespace SGF_ROHAN_WF
 
         }
 
-        private void CreateQuotationFromFormData()
+        private void GenerateRowEntryPair()
         {
 
-        }
-
-        private bool GenerateEntryFromFormData()
-        {
+            //Gather the necessary data from the textboxes.
             string enProductName = p2_textBox_ProductName.Text;
             string enProductDescription = p2_TextBox_ProductDescription.Text;
-            string enProductSpecifications = p2_textBox_ProductSpecifications.Text;
+            string enProductSpecifications = " (" + p2_textBox_ProductSpecifications1.Text + " x " + p2_textBox_ProductSpecifications2.Text + " " + p2_comboBox_ProductSpecifications3.SelectedItem.ToString() + ")";
             float enProductUnitPrice = int.Parse(p2_textBox_ProductPrice.Text);
-
             int entryQuantity = int.Parse(p2_textBox_ProductQuantity.Text);
             float entryDiscount = int.Parse(p2_textBox_ProductDiscount.Text);
 
-            Product entryProduct = new Product(enProductName, enProductDescription, enProductSpecifications, enProductUnitPrice);
+            //Provide a new Product object and add it into a Quotation Entry.
+            Product newProduct = new Product(enProductName, enProductDescription, enProductSpecifications, enProductUnitPrice);
+            CurrentQuotation.AddNewEntryToProductEntries(newProduct, entryQuantity, entryDiscount, out Entry entry);
 
-            if(CurrentQuotation.AddNewEntryFromProductData(entryProduct, entryQuantity, entryDiscount, true, out Entry generatedEntry))
-            {
-                var index = dataGrid_Quotation.Rows.Add();
-                dataGrid_Quotation.Rows[index].Cells["Item"].Value = generatedEntry.ItemNumber;
-                dataGrid_Quotation.Rows[index].Cells["Quantity"].Value = generatedEntry.Quantity;
-                dataGrid_Quotation.Rows[index].Cells["ProductName"].Value = generatedEntry.RowProduct.ProductName + "(Medidas = " + generatedEntry.RowProduct.ProductSpecifications + ")";
-                dataGrid_Quotation.Rows[index].Cells["Description"].Value = generatedEntry.RowProduct.ProductDescription;
-                dataGrid_Quotation.Rows[index].Cells["UnitPrice"].Value = generatedEntry.RowProduct.UnitPrice;
-                dataGrid_Quotation.Rows[index].Cells["TotalPrice"].Value = generatedEntry.TotalPrice;
-                dataGrid_Quotation.Rows[index].Cells["Discount"].Value = generatedEntry.Discount;
-                dataGrid_Quotation.Rows[index].Cells["FinalPrice"].Value = generatedEntry.FinalPrice;
+            //Gotta populate the new row.
+            string ProductSpecSize = newProduct.ProductSpecifications;
+            var index = DataGrid.Rows.Add();
+            DataGrid.Rows[index].Cells["Item"].Value = RowEntryPairs.Count;
+            DataGrid.Rows[index].Cells["Quantity"].Value = entry.Quantity;
+            DataGrid.Rows[index].Cells["ProductName"].Value = newProduct.ProductName + ProductSpecSize;
+            DataGrid.Rows[index].Cells["Description"].Value = newProduct.ProductDescription;
+            DataGrid.Rows[index].Cells["UnitPrice"].Value = newProduct.UnitPrice;
+            DataGrid.Rows[index].Cells["TotalPrice"].Value = entry.TotalPrice;
+            DataGrid.Rows[index].Cells["Discount"].Value = entry.Discount;
+            DataGrid.Rows[index].Cells["FinalPrice"].Value = entry.FinalPrice;
 
-                return true;
-
-            }
-
-            return false;
+            RowEntryPairs.Add(DataGrid.Rows[index], entry);
+            RecalculateFinalPriceData();
 
         }
 
+        /// <summary>
+        /// Updates the displayed rows in ascending Item order. 
+        /// </summary>
+        private void UpdateRowsFromEntryData()
+        {
+            
+            Dictionary<DataGridViewRow, Entry> SortedD = new Dictionary<DataGridViewRow, Entry>();
+
+            int index = 1;
+            foreach(KeyValuePair<DataGridViewRow, Entry> KVP in RowEntryPairs)
+            {
+                KVP.Key.Cells["Item"].Value = index;
+                SortedD.Add(KVP.Key, KVP.Value);
+                index++;
+            }
+
+            //Clumsy, but this reorders the objects in a way where adding new ones won't be disordered.
+            //(aka, new rows won't be added in-between objects due to internal dictionary ordering)
+            RowEntryPairs = SortedD;
+
+            DataGrid.Sort(DataGrid.Columns["Item"], ListSortDirection.Ascending);
+
+        }
 
         private void p2_button_AddProductToQuotation_Click(object sender, EventArgs e)
         {
-            if (ValidateProductPanelTextBoxes())
+            if (!ValidateProductPanelTextBoxes())
             {
-                GenerateEntryFromFormData();
-
+                return;
             }
 
+            GenerateRowEntryPair();
+            UpdateRowsFromEntryData();
 
         }
 
-        private void dataGrid_Quotation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dataGrid_Quotation_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            DataGridViewRow SelectedRow = e.Row;
+        
+            if (SelectedRow != null)
+            {
+                RowEntryPairs[SelectedRow].RemoveEntryFromQuotation();
+                RowEntryPairs.Remove(SelectedRow);
+            }
+
+            UpdateRowsFromEntryData();
+            RecalculateFinalPriceData();
+
+        }
+
+        private void RecalculateFinalPriceData()
+        {
+            float NetTotal = 0;
+            float IVA = 19;
+
+            foreach(Entry entry in CurrentQuotation.ProductEntries)
+            {
+                NetTotal += entry.FinalPrice;
+            }
+
+            float TotalPrice = NetTotal + (NetTotal * (IVA / 100));
+
+            label_IvaData.Text = "19.0%";
+            label_NetTotalData.Text = NetTotal.ToString();
+            label_TotalPriceData.Text = TotalPrice.ToString();
+        }
+
+        private void button_SaveQuotation_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Client involvedClient = dataPersistence.ClientRepository.GetClientFromName(textBox_ClientNameSearchBar.Text);
+                CurrentQuotation.Client = involvedClient;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong!");
+                return;
+            }
+
+            if(CurrentQuotation.ProductEntries.Count == 0)
+            {
+                MessageBox.Show("La cotización actual no tiene productos!");
+                return;
+            }
+
+            if (dataPersistence.QuotationRepository.CreateQuotation(CurrentQuotation))
+            {
+                MessageBox.Show("Cotización guardada exitosamente!");
+                return;
+
+            }
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
 
         }
     }
+
 }

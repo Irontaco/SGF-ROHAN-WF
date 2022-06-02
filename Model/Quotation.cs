@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SGF_ROHAN_WF.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SGF_ROHAN_WF.Model
 {
@@ -18,9 +20,6 @@ namespace SGF_ROHAN_WF.Model
             set { _quotationId = value; }
         }
 
-        //It's important that we don't keep actual references of the Client/Product objects in here.
-        //If they're deleted, we don't want to gather Quotation objects with broken object references.
-        //All operations that require these to be gathered need to make new objects.
         private Client _client;
         public Client Client
         {
@@ -67,62 +66,74 @@ namespace SGF_ROHAN_WF.Model
 
         }
 
-        public bool AddNewEntryFromProductData(Product rowProduct, int qty, float disc, bool addToIndex, out Entry generatedEntry)
+        public void AddNewEntryToProductEntries(int itemNo, Product product, int quantity, float discount, out Entry newEntry)
         {
+            newEntry = new Entry(itemNo, product, quantity, discount);
+            ProductEntries.Add(newEntry);
+
+        }
+        public void AddNewEntryToProductEntries(Product product, int quantity, float discount, out Entry newEntry)
+        {
+            newEntry = new Entry(this, product, quantity, discount);
+            ProductEntries.Add(newEntry);
+
+        }
+
+        public void RemoveEntryFromProductEntries(int itemNo)
+        {
+            ProductEntries.RemoveAt(itemNo);
+        }
+
+        public void RemoveEntryFromProductEntries(Entry entry)
+        {
+            ProductEntries.Remove(entry);
+        }
+
+
+        public Entry GetEntryFromItemNumber(int itemNo)
+        {
+            if(ProductEntries.Count == 0)
+            {
+                return null;
+            }
             try
             {
-                generatedEntry = new Entry(ProductEntries.Count + 1, rowProduct, qty, disc);
-
-                if (addToIndex && AddEntryToIndex(generatedEntry))
+                foreach (Entry entry in ProductEntries)
                 {
-                    return true;
+                    if (entry.ItemNumber == itemNo)
+                    {
+                        return entry;
+                    }
                 }
-                else if (addToIndex && !AddEntryToIndex(generatedEntry))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-
-            }catch(NullReferenceException ex)
-            {
-                Console.WriteLine(ex.Message);
-                generatedEntry = null;
-                return false;
             }
-        }
-
-        public bool AddEntryToIndex(Entry newEntry)
-        {
-            if(newEntry == null)
+            catch(Exception ex)
             {
-                return false;
+                Console.Write(ex.Message);
             }
-            else
-            {
-                ProductEntries.Add(newEntry);
-                return true;
-            }
-        }
+            
 
-        public bool RemoveEntryFromIndex(int itemNo)
-        {
-            if(itemNo == 0 || itemNo < 0 || ProductEntries[itemNo] == null)
-            {
-                return false;
-            }
-
-            ProductEntries.RemoveAt(itemNo);
-            return true;
+            return null;
 
         }
 
     }
 
+    public interface IQuotationRepository
+    {
+
+        Quotation GetQuotationFromId(int id);
+        List<Quotation> GetAllQuotations();
+        bool CreateQuotation(Quotation quo);
+        bool DeleteQuotation(int id);
+        bool UpdateQuotation(int id, Quotation updatedQuotationData);
+
+    }
+
+
     public class Entry
     {
+
+        public Quotation ParentQuotation;
         public int ItemNumber;
         public Product RowProduct;
         public int Quantity;
@@ -135,13 +146,25 @@ namespace SGF_ROHAN_WF.Model
         {
             get => TotalPrice - (TotalPrice * (Discount / 100));
         }
-
         public Entry(int itemNo, Product rowProduct, int qty, float disc)
         {
             ItemNumber = itemNo;
             RowProduct = rowProduct;
             Quantity = qty;
             Discount = disc;
+        }
+
+        public Entry(Quotation parentQuo, Product rowProduct, int qty, float disc)
+        {
+            ParentQuotation = parentQuo;
+            RowProduct = rowProduct;
+            Quantity = qty;
+            Discount = disc;
+        }
+
+        public void RemoveEntryFromQuotation()
+        {
+            ParentQuotation.RemoveEntryFromProductEntries(this);
         }
 
     }
