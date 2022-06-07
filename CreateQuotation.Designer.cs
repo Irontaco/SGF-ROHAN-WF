@@ -47,6 +47,14 @@
             this.label_RegisteredBusinessData = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid_Quotation = new System.Windows.Forms.DataGridView();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_SaveQuotation = new System.Windows.Forms.Button();
             this.button_GeneratePDF = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -55,6 +63,10 @@
             this.label_TotalPriceData = new System.Windows.Forms.Label();
             this.Button_DeleteClient = new System.Windows.Forms.Button();
             this.panel_Quotation = new System.Windows.Forms.Panel();
+            this.panel_QuotationSearch = new System.Windows.Forms.Panel();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.label_QuotationIdData = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.p2_comboBox_ProductSpecifications3 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -77,29 +89,13 @@
             this.p2_textBox_ProductName = new System.Windows.Forms.TextBox();
             this.p2_button_CreateProductInData = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label_QuotationIdData = new System.Windows.Forms.Label();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FinalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel_QuotationSearch = new System.Windows.Forms.Panel();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.createQuotationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).BeginInit();
             this.panel_Quotation.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel_QuotationSearch.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.createQuotationBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -170,7 +166,7 @@
             // label_DateEmitted
             // 
             this.label_DateEmitted.AutoSize = true;
-            this.label_DateEmitted.Location = new System.Drawing.Point(300, 9);
+            this.label_DateEmitted.Location = new System.Drawing.Point(578, 9);
             this.label_DateEmitted.Name = "label_DateEmitted";
             this.label_DateEmitted.Size = new System.Drawing.Size(37, 13);
             this.label_DateEmitted.TabIndex = 7;
@@ -214,7 +210,7 @@
             // DateEmitted
             // 
             this.DateEmitted.AutoSize = true;
-            this.DateEmitted.Location = new System.Drawing.Point(346, 9);
+            this.DateEmitted.Location = new System.Drawing.Point(624, 9);
             this.DateEmitted.Name = "DateEmitted";
             this.DateEmitted.Size = new System.Drawing.Size(35, 13);
             this.DateEmitted.TabIndex = 14;
@@ -278,6 +274,61 @@
             this.dataGrid_Quotation.Size = new System.Drawing.Size(757, 150);
             this.dataGrid_Quotation.TabIndex = 19;
             this.dataGrid_Quotation.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGrid_Quotation_UserDeletingRow);
+            // 
+            // Item
+            // 
+            this.Item.FillWeight = 25F;
+            this.Item.HeaderText = "Item";
+            this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
+            this.Item.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Quantity
+            // 
+            this.Quantity.FillWeight = 40F;
+            this.Quantity.HeaderText = "Cantidad";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            // 
+            // ProductName
+            // 
+            this.ProductName.HeaderText = "Nombre";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.FillWeight = 57.98869F;
+            this.UnitPrice.HeaderText = "Precio Unit.";
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.FillWeight = 57.98869F;
+            this.TotalPrice.HeaderText = "Precio Total";
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            // 
+            // Discount
+            // 
+            this.Discount.FillWeight = 57.98869F;
+            this.Discount.HeaderText = "Descuento";
+            this.Discount.Name = "Discount";
+            this.Discount.ReadOnly = true;
+            // 
+            // FinalPrice
+            // 
+            this.FinalPrice.FillWeight = 57.98869F;
+            this.FinalPrice.HeaderText = "Precio Final";
+            this.FinalPrice.Name = "FinalPrice";
+            this.FinalPrice.ReadOnly = true;
             // 
             // button_SaveQuotation
             // 
@@ -373,6 +424,47 @@
             this.panel_Quotation.Name = "panel_Quotation";
             this.panel_Quotation.Size = new System.Drawing.Size(770, 420);
             this.panel_Quotation.TabIndex = 28;
+            // 
+            // panel_QuotationSearch
+            // 
+            this.panel_QuotationSearch.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_QuotationSearch.Controls.Add(this.listBox2);
+            this.panel_QuotationSearch.Location = new System.Drawing.Point(468, 25);
+            this.panel_QuotationSearch.Name = "panel_QuotationSearch";
+            this.panel_QuotationSearch.Size = new System.Drawing.Size(295, 132);
+            this.panel_QuotationSearch.TabIndex = 30;
+            // 
+            // listBox2
+            // 
+            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(106, 3);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(182, 121);
+            this.listBox2.TabIndex = 52;
+            // 
+            // label_QuotationIdData
+            // 
+            this.label_QuotationIdData.AutoSize = true;
+            this.label_QuotationIdData.Location = new System.Drawing.Point(86, 9);
+            this.label_QuotationIdData.Name = "label_QuotationIdData";
+            this.label_QuotationIdData.Size = new System.Drawing.Size(35, 13);
+            this.label_QuotationIdData.TabIndex = 28;
+            this.label_QuotationIdData.Text = "label1";
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.label_RegisteredBusiness);
+            this.panel3.Controls.Add(this.label_PhoneNumber);
+            this.panel3.Controls.Add(this.label_Email);
+            this.panel3.Controls.Add(this.label_EmailData);
+            this.panel3.Controls.Add(this.label_PhoneNumberData);
+            this.panel3.Controls.Add(this.label_RegisteredBusinessData);
+            this.panel3.Location = new System.Drawing.Point(6, 25);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(456, 132);
+            this.panel3.TabIndex = 29;
             // 
             // panel2
             // 
@@ -585,151 +677,6 @@
             this.listBox1.Size = new System.Drawing.Size(290, 108);
             this.listBox1.TabIndex = 0;
             // 
-            // label_QuotationIdData
-            // 
-            this.label_QuotationIdData.AutoSize = true;
-            this.label_QuotationIdData.Location = new System.Drawing.Point(86, 9);
-            this.label_QuotationIdData.Name = "label_QuotationIdData";
-            this.label_QuotationIdData.Size = new System.Drawing.Size(35, 13);
-            this.label_QuotationIdData.TabIndex = 28;
-            this.label_QuotationIdData.Text = "label1";
-            // 
-            // Item
-            // 
-            this.Item.FillWeight = 25F;
-            this.Item.HeaderText = "Item";
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            this.Item.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Quantity
-            // 
-            this.Quantity.FillWeight = 40F;
-            this.Quantity.HeaderText = "Cantidad";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            // 
-            // ProductName
-            // 
-            this.ProductName.HeaderText = "Nombre";
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Descripción";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // UnitPrice
-            // 
-            this.UnitPrice.FillWeight = 57.98869F;
-            this.UnitPrice.HeaderText = "Precio Unit.";
-            this.UnitPrice.Name = "UnitPrice";
-            this.UnitPrice.ReadOnly = true;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.FillWeight = 57.98869F;
-            this.TotalPrice.HeaderText = "Precio Total";
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            // 
-            // Discount
-            // 
-            this.Discount.FillWeight = 57.98869F;
-            this.Discount.HeaderText = "Descuento";
-            this.Discount.Name = "Discount";
-            this.Discount.ReadOnly = true;
-            // 
-            // FinalPrice
-            // 
-            this.FinalPrice.FillWeight = 57.98869F;
-            this.FinalPrice.HeaderText = "Precio Final";
-            this.FinalPrice.Name = "FinalPrice";
-            this.FinalPrice.ReadOnly = true;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.label_RegisteredBusiness);
-            this.panel3.Controls.Add(this.label_PhoneNumber);
-            this.panel3.Controls.Add(this.label_Email);
-            this.panel3.Controls.Add(this.label_EmailData);
-            this.panel3.Controls.Add(this.label_PhoneNumberData);
-            this.panel3.Controls.Add(this.label_RegisteredBusinessData);
-            this.panel3.Location = new System.Drawing.Point(6, 25);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(456, 132);
-            this.panel3.TabIndex = 29;
-            // 
-            // panel_QuotationSearch
-            // 
-            this.panel_QuotationSearch.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel_QuotationSearch.Controls.Add(this.radioButton4);
-            this.panel_QuotationSearch.Controls.Add(this.radioButton3);
-            this.panel_QuotationSearch.Controls.Add(this.radioButton2);
-            this.panel_QuotationSearch.Controls.Add(this.radioButton1);
-            this.panel_QuotationSearch.Controls.Add(this.listBox2);
-            this.panel_QuotationSearch.Location = new System.Drawing.Point(468, 25);
-            this.panel_QuotationSearch.Name = "panel_QuotationSearch";
-            this.panel_QuotationSearch.Size = new System.Drawing.Size(295, 132);
-            this.panel_QuotationSearch.TabIndex = 30;
-            // 
-            // listBox2
-            // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(106, 3);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(182, 121);
-            this.listBox2.TabIndex = 52;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(3, 3);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 53;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(3, 26);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 54;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(3, 49);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 55;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(3, 71);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
-            this.radioButton4.TabIndex = 56;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
             // bindingSource1
             // 
             this.bindingSource1.DataSource = typeof(SGF_ROHAN_WF.Model.Client);
@@ -748,17 +695,16 @@
             this.MaximumSize = new System.Drawing.Size(1100, 460);
             this.MinimumSize = new System.Drawing.Size(1100, 460);
             this.Name = "CreateQuotation";
-            this.Text = "Sistema de Gestión Financiera ROHAN - Cotización Nueva";
+            this.Text = "Sistema de Gestión Financiera ROHIZ - Cotización Nueva";
             this.Load += new System.EventHandler(this.MainScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_Quotation)).EndInit();
             this.panel_Quotation.ResumeLayout(false);
             this.panel_Quotation.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel_QuotationSearch.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel_QuotationSearch.ResumeLayout(false);
-            this.panel_QuotationSearch.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.createQuotationBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -830,10 +776,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FinalPrice;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel_QuotationSearch;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.ListBox listBox2;
     }
 }

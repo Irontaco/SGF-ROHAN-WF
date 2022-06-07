@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGF-ROHAN-WF", "SGF-ROHAN-WF.csproj", "{2BBE3506-A1EF-4221-B292-050B4C69603B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGF_ROHIZ_WF", "SGF_ROHIZ_WF.csproj", "{2BBE3506-A1EF-4221-B292-050B4C69603B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
