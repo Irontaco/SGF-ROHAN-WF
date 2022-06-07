@@ -53,6 +53,12 @@ namespace SGF_ROHAN_WF.Model
             set => _netTotal = value; 
         }
 
+        private float _ivaDifference;
+        public float IvaDifference
+        {
+            get { return (TotalPrice - NetTotal); }
+        }
+
         private string _offervalidfor;
         public string OfferValidFor
         {
@@ -89,6 +95,20 @@ namespace SGF_ROHAN_WF.Model
             ProductEntries.Remove(entry);
         }
 
+        public void RecalculatePrices()
+        {
+
+            this.NetTotal = 0;
+            this.TotalPrice = 0;
+
+            foreach (Entry entry in this.ProductEntries)
+            {
+                this.NetTotal += entry.FinalPrice;
+            }
+
+            this.TotalPrice = this.NetTotal + (this.NetTotal * (19f / 100));
+
+        }
 
         public Entry GetEntryFromItemNumber(int itemNo)
         {
