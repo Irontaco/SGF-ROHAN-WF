@@ -29,13 +29,19 @@ namespace SGF_ROHAN_WF
 
         public Dictionary<DataGridViewRow, Entry> RowEntryPairs;
 
+        public PdfGenerator PdfGenerator;
+        public PdfData QuoPdfData;
+
         public CreateQuotation(DataPersistence dataPers)
         {
+
             CurrentQuotation = new Quotation();
             dataPersistence = dataPers;
             InitializeComponent();
             DataGrid = dataGrid_Quotation;
             RowEntryPairs = new Dictionary<DataGridViewRow, Entry>();
+            PdfGenerator = new PdfGenerator();
+
 
         }
 
@@ -59,21 +65,19 @@ namespace SGF_ROHAN_WF
         //Calls PDF generator
         private void button_GeneratePDF_Click(object sender, EventArgs e)
         {
-
-            PdfDocument doc = new PdfDocument();
-
-            PdfPage page = doc.AddPage();
-            XGraphics graph = XGraphics.FromPdfPage(page);
-
-            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-
-            graph.DrawString("test", font, XBrushes.Black, new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormat.TopLeft);
-
-            doc.Save("test.pdf");
-            Process.Start("test.pdf");
+            CommitQuotation();
+            MessageBox.Show("Client is null= " + (SelectedClient == null) + "Client is " + SelectedClient.FullName);
+            PdfGenerator.GenerateSamplePdf(CurrentQuotation, "test");
 
         }
 
+        private void CommitQuotation()
+        {
+            RecalculateFinalPriceData();
+            SelectedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
+            CurrentQuotation.Client = SelectedClient;
+
+        }
 
         private void button_NewClient_Click(object sender, EventArgs e)
         {
@@ -133,6 +137,8 @@ namespace SGF_ROHAN_WF
         private void listBox_ClientNameList_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
+            CurrentQuotation.Client = SelectedClient;
+
             UpdateSelectedClientData();
 
         }
@@ -208,7 +214,6 @@ namespace SGF_ROHAN_WF
             DataGrid.Rows[index].Cells["FinalPrice"].Value = entry.FinalPrice;
 
             RowEntryPairs.Add(DataGrid.Rows[index], entry);
-            RecalculateFinalPriceData();
 
         }
 
@@ -245,6 +250,7 @@ namespace SGF_ROHAN_WF
 
             GenerateRowEntryPair();
             UpdateRowsFromEntryData();
+            RecalculateFinalPriceData();
 
         }
 
@@ -266,19 +272,11 @@ namespace SGF_ROHAN_WF
 
         private void RecalculateFinalPriceData()
         {
-            float NetTotal = 0;
-            float IVA = 19;
+            CurrentQuotation.RecalculatePrices();
 
-            foreach(Entry entry in CurrentQuotation.ProductEntries)
-            {
-                NetTotal += entry.FinalPrice;
-            }
-
-            float TotalPrice = NetTotal + (NetTotal * (IVA / 100));
-
-            label_IvaData.Text = "19.0%";
-            label_NetTotalData.Text = NetTotal.ToString();
-            label_TotalPriceData.Text = TotalPrice.ToString();
+            label_NetTotalData.Text = CurrentQuotation.NetTotal.ToString();
+            label_IvaData.Text = CurrentQuotation.IvaDifference.ToString();
+            label_TotalPriceData.Text = CurrentQuotation.TotalPrice.ToString();
         }
 
         private void button_SaveQuotation_Click(object sender, EventArgs e)
@@ -286,7 +284,7 @@ namespace SGF_ROHAN_WF
 
             try
             {
-                Client involvedClient = dataPersistence.ClientRepository.GetClientFromName(textBox_ClientNameSearchBar.Text);
+                Client involvedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
                 CurrentQuotation.Client = involvedClient;
 
             }
@@ -304,7 +302,7 @@ namespace SGF_ROHAN_WF
 
             if (dataPersistence.QuotationRepository.CreateQuotation(CurrentQuotation))
             {
-                MessageBox.Show("Cotización guardada exitosamente!");
+                MessageBox.Show("Cotización guardada exitosamente!" + listBox_ClientNameList.SelectedItem.ToString() + "a");
                 return;
 
             }
