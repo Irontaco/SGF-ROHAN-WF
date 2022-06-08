@@ -61,15 +61,48 @@ namespace SGF_ROHAN_WF.Model
         public void BuildDocumentLayout()
         {
             ActiveSection = ActiveDocument.AddSection();
+            ActiveSection.PageSetup.PageFormat = PageFormat.Letter;
 
             Bitmap bmp = Resources.ROHIZ;
             bmp.Save("tempROHIZ.png");
 
             MigraDoc.DocumentObjectModel.Shapes.Image image = ActiveSection.Headers.Primary.AddImage("tempROHIZ.png");
 
+
+            TextFrame PageWrapper = ActiveSection.AddTextFrame();
+            PageWrapper.LineFormat.Width = 0.5;
+            PageWrapper.RelativeHorizontal = RelativeHorizontal.Page;
+            PageWrapper.RelativeVertical = RelativeVertical.Page;
+            PageWrapper.WrapFormat.DistanceTop = "2cm";
+            PageWrapper.WrapFormat.DistanceLeft = "1.5cm";
+            PageWrapper.Width = "18.5cm";
+            PageWrapper.Height = "24cm";
+            PageWrapper.WrapFormat.Style = WrapStyle.Through;
+
+            TextFrame HeaderWrapper = ActiveSection.AddTextFrame();
+            HeaderWrapper.LineFormat.Width = 0.5;
+            HeaderWrapper.RelativeHorizontal = RelativeHorizontal.Page;
+            HeaderWrapper.RelativeVertical = RelativeVertical.Page;
+            HeaderWrapper.WrapFormat.DistanceTop = "2cm";
+            HeaderWrapper.WrapFormat.DistanceLeft = "1.5cm";
+            HeaderWrapper.Width = "18.5cm";
+            HeaderWrapper.Height = "3cm";
+            HeaderWrapper.WrapFormat.Style = WrapStyle.Through;
+
+            TextFrame FooterWrapper = ActiveSection.AddTextFrame();
+            FooterWrapper.LineFormat.Width = 0.5;
+            FooterWrapper.RelativeHorizontal = RelativeHorizontal.Page;
+            FooterWrapper.RelativeVertical = RelativeVertical.Page;
+            FooterWrapper.Top = ShapePosition.Bottom;
+            FooterWrapper.WrapFormat.DistanceBottom = "2cm";
+            FooterWrapper.WrapFormat.DistanceLeft = "1.5cm";
+            FooterWrapper.Width = "18.5cm";
+            FooterWrapper.Height = "5cm";
+            FooterWrapper.WrapFormat.Style = WrapStyle.Through;
+
             image.Height = "2cm";
             image.LockAspectRatio = true;
-            image.RelativeVertical = RelativeVertical.Line;
+            image.RelativeVertical = RelativeVertical.Margin;
             image.RelativeHorizontal = RelativeHorizontal.Margin;
             image.Top = ShapePosition.Top;
             image.Left = ShapePosition.Left;
@@ -78,9 +111,9 @@ namespace SGF_ROHAN_WF.Model
             TextFrame VendorInfoTextFrame = ActiveSection.Headers.Primary.AddTextFrame();
             VendorInfoTextFrame.Height = "4cm";
             VendorInfoTextFrame.Width = "10cm";
-            VendorInfoTextFrame.RelativeHorizontal = RelativeHorizontal.Margin;
+            VendorInfoTextFrame.RelativeHorizontal = RelativeHorizontal.Page;
             VendorInfoTextFrame.Left = ShapePosition.Center;
-            VendorInfoTextFrame.RelativeVertical = RelativeVertical.Line;
+            VendorInfoTextFrame.RelativeVertical = RelativeVertical.Margin;
             VendorInfoTextFrame.Top = ShapePosition.Top;
 
             Paragraph VendorInfo = VendorInfoTextFrame.AddParagraph();
@@ -94,13 +127,33 @@ namespace SGF_ROHAN_WF.Model
             VendorInfo.AddText("Los Moreños #2846, Iquique");
             VendorInfo.AddLineBreak();
             VendorInfo.AddText("Cel. + 56942627155 / +56975591077");
+
+            TextFrame txtframe = ActiveSection.Headers.Primary.AddTextFrame();
+            txtframe.Height = "1.5cm";
+            txtframe.Width = "3cm";
+            txtframe.WrapFormat.Style = WrapStyle.Through;
+            txtframe.RelativeVertical = RelativeVertical.Margin;
+            txtframe.Top = ShapePosition.Top;
+            txtframe.RelativeHorizontal = RelativeHorizontal.Margin;
+            txtframe.Left = ShapePosition.Right;
+            txtframe.Margin = "0.2cm";
+            txtframe.LineFormat.Width = Unit.FromPoint(0.5f);
+
+            Paragraph QuoIdDate = txtframe.AddParagraph();
+            QuoIdDate.Style = "Table";
+            QuoIdDate.Format.Font.Size = 8;
+            QuoIdDate.Format.Alignment = ParagraphAlignment.Center;
+            QuoIdDate.Format.Font.Bold = true;
+            QuoIdDate.AddText("COTIZACIÓN N° " + ActiveQuotation.Id.ToString());
+            QuoIdDate.AddLineBreak();
+            QuoIdDate.AddText("Fecha: " + ActiveQuotation.EmissionDate.ToShortDateString());
         }
 
         //Generates client data based on the quotation
         public void GenerateClientInformation()
         {
             Paragraph para = ActiveSection.AddParagraph();
-            para.Format.SpaceBefore = "1cm";
+            para.Format.SpaceBefore = "3cm";
 
             Table ClientTable = ActiveSection.AddTable();
 
@@ -157,6 +210,7 @@ namespace SGF_ROHAN_WF.Model
             para.Style = "Table";
             para.Format.Alignment = ParagraphAlignment.Center;
             Text Greetings = para.AddText("A continuación presentamos nuestra oferta y esperamos que sea de su conformidad.");
+            para.Format.SpaceAfter = "0.5cm";
 
             TableData = ActiveSection.AddTable();
             TableData.Style = "Table";
@@ -170,11 +224,11 @@ namespace SGF_ROHAN_WF.Model
             column.Format.Alignment = ParagraphAlignment.Center;
 
             //Quantity - 1
-            column = TableData.AddColumn("1.5cm");
+            column = TableData.AddColumn("1.4cm");
             column.Format.Alignment = ParagraphAlignment.Left;
 
             //ProductName + Specs / Description - 2
-            column = TableData.AddColumn("5cm");
+            column = TableData.AddColumn("6cm");
             column.Format.Alignment = ParagraphAlignment.Right;
 
             //UnitPrice - 3
@@ -240,8 +294,6 @@ namespace SGF_ROHAN_WF.Model
                 //Item, Quantity, ProductName+Specs, UnitPrice, NetTotal, TotalPrice
                 Row row1 = TableData.AddRow();
 
-                //ProductDescription
-                Row row2 = TableData.AddRow();
 
                 //Item
                 row1.TopPadding = 1.5;
@@ -254,6 +306,7 @@ namespace SGF_ROHAN_WF.Model
                 //Quantity
                 row1.Cells[1].AddParagraph(entry.Quantity.ToString() + " un.");
                 row1.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+                row1.Cells[1].VerticalAlignment = VerticalAlignment.Center;
                 row1.Cells[1].MergeDown = 1;
 
                 //ProductName + Specs
@@ -267,17 +320,20 @@ namespace SGF_ROHAN_WF.Model
 
                 //UnitPrice
                 row1.Cells[3].AddParagraph("$" + entry.RowProduct.UnitPrice.ToString());
-                row1.Cells[3].Format.Alignment = ParagraphAlignment.Left;
+                row1.Cells[3].Format.Alignment = ParagraphAlignment.Center;
+                row1.Cells[3].VerticalAlignment = VerticalAlignment.Center;
                 row1.Cells[3].MergeDown = 1;
 
                 //TotalPrice
                 row1.Cells[4].AddParagraph("$" + entry.TotalPrice.ToString());
-                row1.Cells[4].Format.Alignment = ParagraphAlignment.Left;
+                row1.Cells[4].Format.Alignment = ParagraphAlignment.Center;
+                row1.Cells[4].VerticalAlignment = VerticalAlignment.Center;
                 row1.Cells[4].MergeDown = 1;
 
                 //Discount
                 row1.Cells[5].AddParagraph(entry.Discount.ToString() + "%");
                 row1.Cells[5].Format.Alignment = ParagraphAlignment.Center;
+                row1.Cells[5].VerticalAlignment = VerticalAlignment.Center;
                 row1.Cells[5].MergeDown = 1;
 
                 //TotalPrice
@@ -287,9 +343,12 @@ namespace SGF_ROHAN_WF.Model
                 row1.Cells[6].MergeDown = 1;
 
                 //ProductDescription
-                row2.Cells[1].AddParagraph(entry.RowProduct.ProductDescription);
-                row2.Cells[1].MergeDown = 1;
-                row2.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+                Row row2 = TableData.AddRow();
+
+                //ProductDescription
+                System.Windows.Forms.MessageBox.Show(entry.RowProduct.ProductDescription);
+                row2.Cells[2].AddParagraph(entry.RowProduct.ProductDescription);
+                row2.Cells[2].Format.Alignment = ParagraphAlignment.Left;
                 Border brd = new Border();
                 brd.Visible = false;
                 row2.Borders.Top = brd;
@@ -306,18 +365,26 @@ namespace SGF_ROHAN_WF.Model
         public void GeneratePriceTable()
         {
             Paragraph para = ActiveSection.AddParagraph();
-            para.Format.SpaceBefore = "3cm";
+
+            double tablesize = 0;
+
+            foreach(Row r in TableData.Rows)
+            {
+                tablesize += r.Height.Point;
+            }
+
+            para.Format.SpaceBefore = tablesize + "0.5cm";
 
             Table PriceTable = ActiveSection.AddTable();
             PriceTable.Style = "Table";
             PriceTable.Borders.Width = 0.25;
             PriceTable.Borders.Left.Width = 0.25;
-            PriceTable.Borders.Right.Width = 0;
-            PriceTable.Rows.LeftIndent = 0;
-            PriceTable.Format.Alignment = ParagraphAlignment.Right;
+            PriceTable.Borders.Right.Width = 0.25;
+            PriceTable.Rows.LeftIndent = "12.8cm";
+            PriceTable.Format.Alignment = ParagraphAlignment.Left;
 
-            Column column = PriceTable.AddColumn("3cm");
-            column = PriceTable.AddColumn("3cm");
+            Column column = PriceTable.AddColumn("1.5cm");
+            column = PriceTable.AddColumn("2cm");
 
             Row row = PriceTable.AddRow();
 
@@ -337,6 +404,85 @@ namespace SGF_ROHAN_WF.Model
             row.Cells[0].Shading.Color = RohizColor;
             row.Cells[0].Format.Font.Bold = true;
             row.Cells[1].AddParagraph("$" + ActiveQuotation.TotalPrice);
+        }
+
+        public void AddVendorInfo()
+        {
+
+            Table PriceTable = ActiveSection.Footers.Primary.AddTable();
+            PriceTable.Style = "Table";
+            PriceTable.Borders.Width = 0.25;
+            PriceTable.Borders.Left.Width = 0.25;
+            PriceTable.Borders.Right.Width = 0.25;
+            PriceTable.Rows.LeftIndent = "0cm";
+            PriceTable.Format.Alignment = ParagraphAlignment.Right;
+
+            Column column = PriceTable.AddColumn("2cm");
+            column = PriceTable.AddColumn("5cm");
+
+            Row row = PriceTable.AddRow();
+
+            row.Cells[0].AddParagraph("DATOS DE TRANSFERENCIA");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[0].Format.Font.Bold = true;
+            row.Cells[0].MergeRight = 1;
+
+            //Bank
+            row = PriceTable.AddRow();
+            row.Cells[0].AddParagraph("BANCO:");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].AddParagraph("Banco Estado");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[1].Format.Font.Bold = true;
+
+            //AccNumber
+            row = PriceTable.AddRow();
+            row.Cells[0].AddParagraph("N° CUENTA:");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].AddParagraph("1200003795");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[1].Format.Font.Bold = true;
+
+            //Name
+            row = PriceTable.AddRow();
+            row.Cells[0].AddParagraph("NOMBRE:");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].AddParagraph("Sergio Rojas Delgado");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[1].Format.Font.Bold = true;
+
+            //RUT
+            row = PriceTable.AddRow();
+            row.Cells[0].AddParagraph("RUT:");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].AddParagraph("10.614.843-0");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[1].Format.Font.Bold = true;
+
+            //CORREO
+            row = PriceTable.AddRow();
+            row.Cells[0].AddParagraph("CORREO:");
+            row.Cells[0].Shading.Color = RohizColor;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+            row.Cells[1].AddParagraph("confeccioncarpas@gmail.com");
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[1].Format.Font.Bold = true;
+
+            Paragraph OfferValidFor = ActiveSection.Footers.Primary.AddParagraph();
+            OfferValidFor.Style = "Table";
+            OfferValidFor.Format.SpaceBefore = "0.5cm";
+            OfferValidFor.Format.SpaceAfter = "2cm";
+            OfferValidFor.Format.Alignment = ParagraphAlignment.Center;
+
+            Text txt = OfferValidFor.AddText("Condiciones de pago: POR DETERMINAR");
+            OfferValidFor.AddLineBreak();
+            txt = OfferValidFor.AddText("Validez de la oferta: POR DETERMINAR");
+
         }
 
 

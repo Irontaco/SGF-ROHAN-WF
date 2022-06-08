@@ -20,12 +20,14 @@ namespace SGF_ROHAN_WF.Controller
             string fullfilename = fname + ".pdf";
 
             DocData = new PdfData(quo, fname);
+
             DocData.BuildDocumentStyles();
             DocData.BuildDocumentLayout();
             DocData.GenerateClientInformation();
             DocData.GenerateTableHeaders();
             DocData.PopulateTableData();
             DocData.GeneratePriceTable();
+            DocData.AddVendorInfo();
 
             var pdf = new MigraDoc.Rendering.PdfDocumentRenderer(true);
 
@@ -35,6 +37,7 @@ namespace SGF_ROHAN_WF.Controller
             pdf.Save(fullfilename);
 
             Process.Start(fullfilename);
+
         }
 
     }

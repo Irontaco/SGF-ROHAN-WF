@@ -76,6 +76,7 @@ namespace SGF_ROHAN_WF
             RecalculateFinalPriceData();
             SelectedClient = dataPersistence.ClientRepository.GetClientFromName(listBox_ClientNameList.SelectedItem.ToString());
             CurrentQuotation.Client = SelectedClient;
+            CurrentQuotation.EmissionDate = DateTime.Now;
 
         }
 
